@@ -10,6 +10,16 @@
 
 #include <stdio.h>
 
-void boot() {
+static void clear_console() {
+	// https://stackoverflow.com/questions/37774983/clearing-the-screen-by-printing-a-character
+	printf("\033[2J\033[H");
+}
+
+static void boot_message() {
+	clear_console();
 	puts("System boot!\r");
+}
+
+void boot() {
+	boot_message();
 }
