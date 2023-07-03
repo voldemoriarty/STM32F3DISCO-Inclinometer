@@ -7,6 +7,7 @@
 
 
 #include "common.h"
+#include "lsm303lhc_driver.h"
 
 #include <stdio.h>
 
@@ -22,4 +23,5 @@ static void boot_message() {
 
 void boot() {
 	boot_message();
+	lsm303lhc_init();
 }
