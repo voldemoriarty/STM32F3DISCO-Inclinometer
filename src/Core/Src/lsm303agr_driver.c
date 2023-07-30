@@ -205,7 +205,7 @@ LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd) {
     if (read_acc_reg(REG_TMP_A, 2, buff) != 0) {
        return ERR_RD_A;
     }
-    rd->temp = (int8_t)buff[1] + 20;
+    rd->temp = (int8_t)buff[1] + 25;
 
     if (read_acc_reg(REG_OUT_A, 6, (uint8_t *)rd->accl) != 0) {
         return ERR_RD_A;
