@@ -20,14 +20,21 @@ static void boot_message() {
     puts("System boot!\r");
 }
 
+static void error_acc_init() {
+    // display message 
+    puts("Acc init error!\r");
+
+    // halt the device
+    while (1)
+        ;
+}
+
 void boot() {
     boot_message();
     HAL_Delay(250);
 
     if (lsm303agr_init() != ERR_NONE) {
-        puts("Acc init error!\r");
-        while (1)
-            ;
+        error_acc_init();
     }
 
     puts("Acc init complete!\r");
