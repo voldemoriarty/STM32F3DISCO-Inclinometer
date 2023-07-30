@@ -61,7 +61,8 @@ void boot() {
             printf("%+.3f, ", rd.accl[i] * 0.001f);
         }
         printf("]; ");
-        printf("Temp: %d\r\n", rd.temp);
-        HAL_Delay(1000);
+        printf("Temp: %d\r", rd.temp);
+        fflush(stdout);
+        HAL_Delay(250);
     }
 }
