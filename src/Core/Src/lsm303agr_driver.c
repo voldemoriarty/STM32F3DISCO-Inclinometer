@@ -65,6 +65,11 @@ static int write_i2c_reg(uint8_t addr, uint16_t reg, uint8_t value) {
 // read len i2c registers into buff. Returns 0 on OK
 static int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff) {
     HAL_StatusTypeDef ret;
+
+    // MSB is high for multi byte reads
+    if (len > 1)
+        reg |= 0x80;
+
     ret = HAL_I2C_Mem_Read(&hi2c1, addr, reg, 1, buff, len, HAL_MAX_DELAY);
 
     if (ret == HAL_OK)
