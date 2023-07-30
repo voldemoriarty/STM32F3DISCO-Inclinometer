@@ -6,9 +6,8 @@
  */
 
 
+#include <lsm303agr_driver.h>
 #include "common.h"
-#include "lsm303lhc_driver.h"
-
 #include <stdio.h>
 
 static void clear_console() {
@@ -23,5 +22,5 @@ static void boot_message() {
 
 void boot() {
 	boot_message();
-	lsm303lhc_init();
+	lsm303agr_init();
 }

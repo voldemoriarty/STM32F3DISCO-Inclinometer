@@ -6,7 +6,7 @@
  */
 
 
-#include "lsm303lhc_driver.h"
+#include <lsm303agr_driver.h>
 #include "i2c.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -15,6 +15,29 @@
 #define ACC_I2C_ADDR_WR 0x32
 #define MAG_I2C_ADDR_RD 0x3D	// Sec 5.1.3, p22 datasheet
 #define MAG_I2C_ADDR_WR 0x3C
+
+#define ACC_CTR_REG 0x20
+#define ACC_OUT_REG 0x28
+
+#define MAG_TMP_H_REG 0x31
+#define MAG_TMP_L_REG 0x32
+
+// Table 20 datasheet
+#define ACC_ODR_SHIFT	4
+#define ACC_ODR_1HZ 	0b0001
+#define ACC_ODR_10HZ 	0b0010
+#define ACC_ODR_25HZ	0b0011
+#define ACC_ODR_50HZ	0b0100
+#define ACC_ODR_100HZ	0b0101
+#define ACC_ODR_200HZ	0b0110
+#define ACC_ODR_400HZ	0b0111
+
+// Table 27 datasheet
+#define ACC_FS_SHIFT 	4
+#define ACC_FS_2G		0b00
+#define ACC_FS_4G		0b01
+#define ACC_FS_8G		0b10
+#define ACC_FS_16G		0b11
 
 #define ACC_WHO_AM_I 0x33
 
@@ -38,7 +61,7 @@ static int read_mag_reg(uint16_t reg, uint16_t len, uint8_t *buff) {
 }
 
 
-int lsm303lhc_init() {
+int lsm303agr_init() {
 	uint8_t tmp;
 
 	// read who_am_i register
