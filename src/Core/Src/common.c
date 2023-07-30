@@ -27,6 +27,7 @@ void boot() {
 
 	if (lsm303agr_init() != ERR_NONE) {
 		puts("Acc init error!\r");
+		while (1);
 	}
 
 	puts("Acc init complete!\r");
