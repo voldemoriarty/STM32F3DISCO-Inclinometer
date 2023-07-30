@@ -5,8 +5,8 @@ A basic inclinometer using onboard IMU on STM32F3 Discovery board
 - [x] Set up dev environment
 - [x] Set up serial console
 - [x] Set up i2c comm
-- [ ] Initialize Accel
-- [ ] Read & Print Accel data
+- [x] Initialize Accel
+- [x] Read & Print Accel data
 - [ ] Define axes
 - [ ] Compute angles and print on serial
 - [ ] Calibration & zero setting from button
