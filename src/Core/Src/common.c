@@ -58,10 +58,10 @@ void boot() {
 
         printf("Acc Buff: [");
         for (i = 0; i < 3; ++i) {
-            printf("%+.3f, ", rd.accl[i] * 0.001f);
+            printf("%+.3f, ", rd.accl[i] * 0.0098f);
         }
         printf("]; ");
-        printf("Temp: %d\r", rd.temp);
+        printf("Temp: %d        \r", rd.temp);
         fflush(stdout);
         HAL_Delay(250);
     }
