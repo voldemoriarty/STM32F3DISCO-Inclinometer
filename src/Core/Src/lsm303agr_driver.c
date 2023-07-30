@@ -23,6 +23,10 @@
 #define REG_TMP_CFG_A   0x1F
 #define REG_WHOAMI_A    0x0F
 #define REG_WHOAMI_M    0x4F
+#define REG_CFG_A_M     0x60
+#define REG_CFG_B_M     0x61
+#define REG_CFG_C_M     0x62
+#define REG_OUT_M       0x68
 
 // Table 35 datasheet
 #define ACC_ODR_SHIFT   4
@@ -39,6 +43,7 @@
 #define ACC_LPEN        (1 << 3)
 #define ACC_ALL_EN      (ACC_XEN | ACC_YEN | ACC_ZEN)
 #define ACC_BDU_EN      (1 << 7)
+#define MAG_BDU_EN      (1 << 4)
 
 // Table 27 datasheet
 #define ACC_FS_SHIFT    4
@@ -46,6 +51,13 @@
 #define ACC_FS_4G       (0b01 << ACC_FS_SHIFT)
 #define ACC_FS_8G       (0b10 << ACC_FS_SHIFT)
 #define ACC_FS_16G      (0b11 << ACC_FS_SHIFT)
+
+// Table 93 datasheet
+#define MAG_ODR_SHIFT   2
+#define MAG_ODR_10HZ    0b00
+#define MAG_ODR_20HZ    0b01
+#define MAG_ODR_50HZ    0b10
+#define MAG_ODR_100HZ   0b11
 
 // WHO_AM_I Values
 #define ACC_WHOAMI      0x33
@@ -145,12 +157,14 @@ LSM303AGR_Error lsm303agr_init() {
     read_acc_reg(REG_WHOAMI_A, 1, &tmp);
     printf("ACC WHO_AM_I: 0x%X\r\n", tmp);
     if (tmp != ACC_WHOAMI) {
+        puts("Error in WHOAMI ACC\r");
         return ERR_ID_A;
     }
 
     read_mag_reg(REG_WHOAMI_M, 1, &tmp);
     printf("MAG WHO_AM_I: 0x%X\r\n", tmp);
     if (tmp != MAG_WHOAMI) {
+        puts("Error in WHOAMI MAG\r");
         return ERR_ID_M;
     }
 
@@ -169,6 +183,17 @@ LSM303AGR_Error lsm303agr_init() {
     if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN) != ERR_NONE) {
         puts("Error setting CTR4_A\r");
         return ERR_WR_A;
+    }
+
+    // enable magnetometer
+    if (write_mag_reg_v(REG_CFG_A_M, MAG_ODR_10HZ) != ERR_NONE) {
+        puts("Error setting CFG_REG_A_M\r");
+        return ERR_WR_M;
+    }
+
+    if (write_mag_reg_v(REG_CFG_C_M, MAG_BDU_EN) != ERR_NONE) {
+        puts("Error setting CFG_REG_C_M\r");
+        return ERR_WR_M;
     }
     return ERR_NONE;
 }
