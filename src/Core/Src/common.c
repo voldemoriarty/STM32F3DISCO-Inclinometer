@@ -8,6 +8,7 @@
 
 #include <lsm303agr_driver.h>
 #include "common.h"
+#include "main.h"
 #include <stdio.h>
 
 static void clear_console() {
@@ -22,6 +23,8 @@ static void boot_message() {
 
 void boot() {
 	boot_message();
+	HAL_Delay(250);
+
 	if (lsm303agr_init() != ERR_NONE) {
 		puts("Acc init error!\r");
 	}
