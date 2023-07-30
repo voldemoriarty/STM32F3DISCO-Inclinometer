@@ -22,5 +22,7 @@ static void boot_message() {
 
 void boot() {
 	boot_message();
-	lsm303agr_init();
+	if (lsm303agr_init() != 0) {
+		puts("Acc init error!\r");
+	}
 }

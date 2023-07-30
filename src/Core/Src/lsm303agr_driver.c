@@ -11,16 +11,18 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#define ACC_I2C_ADDR_RD 0x33	// Sec 5.1.2, p21 datasheet
+// I2C Slave Addresses
+#define ACC_I2C_ADDR_RD 0x33	// Tab 24, p39 datasheet
 #define ACC_I2C_ADDR_WR 0x32
-#define MAG_I2C_ADDR_RD 0x3D	// Sec 5.1.3, p22 datasheet
+#define MAG_I2C_ADDR_RD 0x3D	// Tab 25, p39 datasheet
 #define MAG_I2C_ADDR_WR 0x3C
 
-#define ACC_CTR_REG 0x20
-#define ACC_OUT_REG 0x28
-
-#define MAG_TMP_H_REG 0x31
-#define MAG_TMP_L_REG 0x32
+// Register Addresses
+#define REG_CTR_A 		0x20
+#define REG_OUT_A 		0x28
+#define REG_TMP_A 		0x0C
+#define REG_WHOAMI_A 	0x0F
+#define REG_WHOAMI_M	0x4F
 
 // Table 20 datasheet
 #define ACC_ODR_SHIFT	4
@@ -38,8 +40,6 @@
 #define ACC_FS_4G		0b01
 #define ACC_FS_8G		0b10
 #define ACC_FS_16G		0b11
-
-#define ACC_WHO_AM_I 0x33
 
 // read len i2c registers into buff. Returns 0 on OK
 static int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff) {
@@ -61,14 +61,21 @@ static int read_mag_reg(uint16_t reg, uint16_t len, uint8_t *buff) {
 }
 
 
-int lsm303agr_init() {
+LSM303AGR_Error lsm303agr_init() {
 	uint8_t tmp;
 
-	// read who_am_i register
-	read_acc_reg(0x0f, 1, &tmp);
+	// read who_am_i register to identify device
+	read_acc_reg(REG_WHOAMI_A, 1, &tmp);
 	printf("ACC WHO_AM_I: 0x%X\r\n", tmp);
+	if (tmp != 0x33) {
+		return ERR_ID_A;
+	}
 
-	read_mag_reg(0x0f, 1, &tmp);
+	read_mag_reg(REG_WHOAMI_M, 1, &tmp);
 	printf("MAG WHO_AM_I: 0x%X\r\n", tmp);
+	if (tmp != 0x40) {
+		return ERR_ID_M;
+	}
+
 	return 0;
 }
