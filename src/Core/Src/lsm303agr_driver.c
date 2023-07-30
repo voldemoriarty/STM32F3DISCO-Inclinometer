@@ -42,6 +42,7 @@
 #define ACC_LPEN        (1 << 3)
 #define ACC_ALL_EN      (ACC_XEN | ACC_YEN | ACC_ZEN)
 #define ACC_BDU_EN      (1 << 7)
+#define ACC_HR_EN       (1 << 3)
 #define MAG_BDU_EN      (1 << 4)
 
 // Table 27 datasheet
@@ -179,7 +180,7 @@ LSM303AGR_Error lsm303agr_init() {
         return ERR_WR_A;
     }
 
-    if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN) != ERR_NONE) {
+    if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN | ACC_HR_EN) != ERR_NONE) {
         puts("Error setting CTR4_A\r");
         return ERR_WR_A;
     }
