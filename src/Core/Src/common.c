@@ -30,4 +30,9 @@ void boot() {
 	}
 
 	puts("Acc init complete!\r");
+
+	while (1) {
+	    printf("Temp: %.2f\r\n", lsm303agr_readTemp());
+	    HAL_Delay(1000);
+	}
 }

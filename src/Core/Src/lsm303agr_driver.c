@@ -167,3 +167,10 @@ LSM303AGR_Error lsm303agr_init() {
     }
     return ERR_NONE;
 }
+
+float lsm303agr_readTemp() {
+    int8_t buff[2];
+    read_acc_reg(REG_TMP_A, 2, (uint8_t*)buff);
+
+    return (float)(buff[1]) + 20.0f;
+}
