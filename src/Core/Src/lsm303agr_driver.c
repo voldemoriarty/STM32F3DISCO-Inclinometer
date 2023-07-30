@@ -170,7 +170,29 @@ LSM303AGR_Error lsm303agr_init() {
 
 float lsm303agr_readTemp() {
     int8_t buff[2];
-    read_acc_reg(REG_TMP_A, 2, (uint8_t*)buff);
+
+    read_acc_reg(REG_TMP_A, 1, (uint8_t*)buff);
+    read_acc_reg(REG_TMP_A+1, 1, (uint8_t*)(buff+1));
+
+    printf("Buff = [0x%X, 0x%X];\r\n", buff[1], buff[0]);
 
     return (float)(buff[1]) + 20.0f;
 }
+
+void lsm303agr_readAcc() {
+    uint8_t buff[6];
+    int i;
+
+    for (i = 0; i < 6; ++i) {
+        read_acc_reg(REG_OUT_A + i, 1, buff + i);
+    }
+
+    printf("Buff = [");
+    for(i = 0; i < 6; ++i) {
+        printf("0x%X, ", buff[i]);
+    }
+    printf("];\r\n");
+}
+
+
+

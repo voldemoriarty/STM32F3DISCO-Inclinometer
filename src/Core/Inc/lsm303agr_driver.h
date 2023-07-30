@@ -20,5 +20,6 @@ typedef enum LSM303AGR_Error {
 
 LSM303AGR_Error lsm303agr_init();
 float lsm303agr_readTemp();
+void lsm303agr_readAcc();
 
 #endif /* INC_LSM303AGR_DRIVER_H_ */
