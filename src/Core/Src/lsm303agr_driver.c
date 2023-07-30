@@ -7,7 +7,6 @@
 
 #include <lsm303agr_driver.h>
 #include "i2c.h"
-#include <stdint.h>
 #include <stdio.h>
 
 // I2C Slave Addresses
@@ -198,27 +197,31 @@ LSM303AGR_Error lsm303agr_init() {
     return ERR_NONE;
 }
 
-float lsm303agr_readTemp() {
-    int8_t buff[2];
+LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd) {
+    uint8_t buff[2];
+    int     i;
 
-    read_acc_reg(REG_TMP_A, 2, (uint8_t*)buff);
-    printf("Buff = [0x%X, 0x%X];\r\n", buff[1], buff[0]);
-
-    return (float)(buff[1]) + 20.0f;
-}
-
-void lsm303agr_readAcc() {
-    uint8_t buff[6];
-    int i;
-
-    read_acc_reg(REG_OUT_A, 6, buff);
-
-    printf("Buff = [");
-    for(i = 0; i < 6; ++i) {
-        printf("0x%X, ", buff[i]);
+    if (read_acc_reg(REG_TMP_A, 2, buff) != 0) {
+       return ERR_RD_A;
     }
-    printf("];\r\n");
+    rd->temp = (int8_t)buff[1] + 20;
+
+    if (read_acc_reg(REG_OUT_A, 6, (uint8_t *)rd->accl) != 0) {
+        return ERR_RD_A;
+    }
+
+    // scaling
+    for (i = 0; i < 3; ++i) {
+        // correct for left justified data
+        // in high resolution mode, shift by 4
+        // in normal mode, shift by 6
+        // in low power mode, shift by 8
+        rd->accl[i] >>= 4;
+
+        // apply scaling, based on table 3 of datasheet
+        rd->accl[i] *= 1;
+    }
+
+    return ERR_NONE;
 }
-
-
 

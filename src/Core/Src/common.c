@@ -29,19 +29,39 @@ static void error_acc_init() {
         ;
 }
 
+static void error_acc_read() {
+    // display message
+    puts("Acc reading error!\r");
+
+    // halt the device
+    while (1)
+        ;
+}
+
 void boot() {
+    LSM303AGR_Readings rd;
+    int i;
+
     boot_message();
-    HAL_Delay(250);
 
     if (lsm303agr_init() != ERR_NONE) {
         error_acc_init();
     }
-
     puts("Acc init complete!\r");
 
+    HAL_Delay(250);
+
     while (1) {
-        lsm303agr_readAcc();
-        printf("Temp: %.2f\r\n", lsm303agr_readTemp());
+        if (lsm303agr_measure(&rd) != ERR_NONE) {
+            error_acc_read();
+        }
+
+        printf("Acc Buff: [");
+        for (i = 0; i < 3; ++i) {
+            printf("%+.3f, ", rd.accl[i] * 0.001f);
+        }
+        printf("]; ");
+        printf("Temp: %d\r\n", rd.temp);
         HAL_Delay(1000);
     }
 }
