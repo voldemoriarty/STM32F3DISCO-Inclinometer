@@ -54,10 +54,10 @@
 
 // Table 93 datasheet
 #define MAG_ODR_SHIFT   2
-#define MAG_ODR_10HZ    0b00
-#define MAG_ODR_20HZ    0b01
-#define MAG_ODR_50HZ    0b10
-#define MAG_ODR_100HZ   0b11
+#define MAG_ODR_10HZ    (0b00 << MAG_ODR_SHIFT)
+#define MAG_ODR_20HZ    (0b01 << MAG_ODR_SHIFT)
+#define MAG_ODR_50HZ    (0b10 << MAG_ODR_SHIFT)
+#define MAG_ODR_100HZ   (0b11 << MAG_ODR_SHIFT)
 
 // WHO_AM_I Values
 #define ACC_WHOAMI      0x33
