@@ -9,8 +9,13 @@
 #define INC_LSM303AGR_DRIVER_H_
 
 typedef enum LSM303AGR_Error {
+	ERR_NONE = 0,
 	ERR_ID_A = 1,
-	ERR_ID_M = 2
+	ERR_ID_M = 2,
+	ERR_WR_A = 3,
+	ERR_RD_A = 4,
+	ERR_WR_M = 5,
+	ERR_RD_M = 6,
 } LSM303AGR_Error;
 
 LSM303AGR_Error lsm303agr_init();
