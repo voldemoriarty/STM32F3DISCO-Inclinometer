@@ -21,7 +21,8 @@ typedef enum LSM303AGR_Error {
 } LSM303AGR_Error;
 
 typedef struct LSM303AGR_Readings {
-    int16_t accl[3];
+    int16_t acc[3];
+    int16_t mag[3];
     int16_t temp;
 } LSM303AGR_Readings;
 

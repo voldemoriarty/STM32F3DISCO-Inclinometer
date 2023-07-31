@@ -180,7 +180,7 @@ LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd) {
     }
     rd->temp = (int8_t)buff[1] + 25;
 
-    if (read_acc_reg(REG_OUT_A, 6, (uint8_t *)rd->accl) != 0) {
+    if (read_acc_reg(REG_OUT_A, 6, (uint8_t *)rd->acc) != 0) {
         return ERR_RD_A;
     }
 
@@ -190,10 +190,10 @@ LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd) {
         // in high resolution mode, shift by 4
         // in normal mode, shift by 6
         // in low power mode, shift by 8
-        rd->accl[i] >>= 4;
+        rd->acc[i] >>= 4;
 
         // apply scaling, based on table 3 of datasheet
-        rd->accl[i] *= 1;
+        rd->acc[i] *= 1;
     }
 
     return ERR_NONE;
