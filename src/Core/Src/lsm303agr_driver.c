@@ -141,29 +141,32 @@ LSM303AGR_Error lsm303agr_init() {
         return ERR_ID_M;
     }
 
-    // enable temperature readings
+    // enable temperature readings. For temperature measurements, BDU must be
+    // enabled for accelerometer. It will be done in next step
     if (write_acc_reg_v(REG_TMP_CFG_A, 0b11000000) != ERR_NONE) {
         puts("Error setting TMP_CFG_A\r");
         return ERR_WR_A;
     }
 
-    // enable accelerometer
+    // enable accelerometer. Set data-rate and axis enable in CTR1
     if (write_acc_reg_v(REG_CTR_A, ACC_ODR_100HZ | ACC_ALL_EN) != ERR_NONE) {
         puts("Error setting CTR1_A\r");
         return ERR_WR_A;
     }
 
+    // Set full scale, BDU (required for temperature) & High resolution mode in CTR4 (CTR4 = CTR + 3)
     if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN | ACC_HR_EN) != ERR_NONE) {
         puts("Error setting CTR4_A\r");
         return ERR_WR_A;
     }
 
-    // enable magnetometer
+    // enable magnetometer. Set data-rate in REG_A. No axis enable here ... weird
     if (write_mag_reg_v(REG_CFG_A_M, MAG_ODR_10HZ) != ERR_NONE) {
         puts("Error setting CFG_REG_A_M\r");
         return ERR_WR_M;
     }
 
+    // enable BDU in REG_C
     if (write_mag_reg_v(REG_CFG_C_M, MAG_BDU_EN) != ERR_NONE) {
         puts("Error setting CFG_REG_C_M\r");
         return ERR_WR_M;
