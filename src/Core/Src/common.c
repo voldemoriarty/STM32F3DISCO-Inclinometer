@@ -40,10 +40,6 @@ static void error_acc_read() {
 }
 
 void boot() {
-    LSM303AGR_Readings rd;
-    uint16_t tick;
-    int i;
-
     boot_message();
 
     if (lsm303agr_init() != ERR_NONE) {
@@ -51,22 +47,34 @@ void boot() {
     }
     puts("Acc init complete!\r");
 
-    delay_ms(250);
+    delay_ms(70);
+}
 
-    while (1) {
-    	tick = get_ticks_us();
-        if (lsm303agr_measure(&rd) != ERR_NONE) {
-            error_acc_read();
-        }
-        printf("[%3lu us] ", get_elapsed_us(tick));
+uint16_t tick = 0;
+uint64_t t_ms = 0;
 
-        printf("Acc Buff: [");
-        for (i = 0; i < 3; ++i) {
-            printf("%+.3f, ", rd.acc[i] * 0.0098f);
-        }
-        printf("]; ");
-        printf("Temp: %d        \r", rd.temp);
-        fflush(stdout);
-        delay_ms(250);
-    }
+void loop() {
+	LSM303AGR_Readings rd;
+	int i;
+
+	t_ms += 10;
+	tick = get_ticks_us();
+	if (lsm303agr_measure(&rd) != ERR_NONE) {
+		error_acc_read();
+	}
+
+	// every 250ms send data to serial
+	if (t_ms % 250 == 0) {
+		printf("[%3lu us] ", get_elapsed_us(tick));
+
+		printf("Acc Buff: [");
+		for (i = 0; i < 3; ++i) {
+			printf("%+.3f, ", rd.acc[i] * 0.0098f);
+		}
+		printf("]; ");
+		printf("Temp: %d        \r", rd.temp);
+
+
+		fflush(stdout);
+	}
 }

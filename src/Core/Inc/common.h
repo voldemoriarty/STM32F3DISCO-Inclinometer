@@ -9,5 +9,6 @@
 #define INC_COMMON_H_
 
 void boot();
+void loop();
 
 #endif /* INC_COMMON_H_ */

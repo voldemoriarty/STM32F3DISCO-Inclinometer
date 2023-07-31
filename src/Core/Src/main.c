@@ -27,6 +27,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "common.h"
+#include "platform.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -92,9 +93,15 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_TIM7_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim7);
   boot();
+
+  // start TIM6 after boot() function is called
+  // to make sure it doesn't fire during
+  HAL_TIM_Base_Start_IT(&htim6);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -156,7 +163,15 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+// Callback for timer interrupt
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 
+	// If TIM6 fired, then we call our code
+	if (htim == &htim6) {
+		loop();
+	}
+
+}
 /* USER CODE END 4 */
 
 /**
