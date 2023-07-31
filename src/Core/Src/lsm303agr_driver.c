@@ -6,7 +6,7 @@
  */
 
 #include <lsm303agr_driver.h>
-#include "i2c.h"
+#include <platform.h>
 #include <stdio.h>
 
 // I2C Slave Addresses
@@ -62,33 +62,6 @@
 // WHO_AM_I Values
 #define ACC_WHOAMI      0x33
 #define MAG_WHOAMI      0x40
-
-// write into i2c register
-static int write_i2c_reg(uint8_t addr, uint16_t reg, uint8_t value) {
-    HAL_StatusTypeDef ret;
-    ret = HAL_I2C_Mem_Write(&hi2c1, addr, reg, 1, &value, 1, HAL_MAX_DELAY);
-
-    if (ret == HAL_OK)
-        return 0;
-    else
-        return 1;
-}
-
-// read len i2c registers into buff. Returns 0 on OK
-static int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff) {
-    HAL_StatusTypeDef ret;
-
-    // MSB is high for multi byte reads
-    if (len > 1)
-        reg |= 0x80;
-
-    ret = HAL_I2C_Mem_Read(&hi2c1, addr, reg, 1, buff, len, HAL_MAX_DELAY);
-
-    if (ret == HAL_OK)
-        return 0;
-    else
-        return 1;
-}
 
 static int read_acc_reg(uint16_t reg, uint16_t len, uint8_t *buff) {
     return read_i2c_reg(ACC_I2C_ADDR_RD, reg, len, buff);

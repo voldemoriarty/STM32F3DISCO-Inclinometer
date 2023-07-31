@@ -8,6 +8,7 @@
 #include <lsm303agr_driver.h>
 #include "common.h"
 #include "main.h"
+#include "platform.h"
 #include <stdio.h>
 
 static void clear_console() {
@@ -49,7 +50,7 @@ void boot() {
     }
     puts("Acc init complete!\r");
 
-    HAL_Delay(250);
+    delay_ms(250);
 
     while (1) {
         if (lsm303agr_measure(&rd) != ERR_NONE) {
@@ -63,6 +64,6 @@ void boot() {
         printf("]; ");
         printf("Temp: %d        \r", rd.temp);
         fflush(stdout);
-        HAL_Delay(250);
+        delay_ms(250);
     }
 }
