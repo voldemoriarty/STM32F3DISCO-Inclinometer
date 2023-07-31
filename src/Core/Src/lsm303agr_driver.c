@@ -175,14 +175,18 @@ LSM303AGR_Error lsm303agr_init() {
 }
 
 LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd) {
-    uint8_t buff[2];
-    int     i;
+    int i;
 
-    if (read_acc_reg(REG_TMP_A, 2, buff) != 0) {
+    // read TEMP_L & TEMP_H registers into 16bit field.
+    if (read_acc_reg(REG_TMP_A, 2, (uint8_t *)&rd->temp) != 0) {
        return ERR_RD_A;
     }
-    rd->temp = (int8_t)buff[1] + 25;
 
+    // data is 8bit left justified. Compensate for it & add offset
+    rd->temp >>= 8;
+    rd->temp += 25;
+
+    // read all out registers at once.
     if (read_acc_reg(REG_OUT_A, 6, (uint8_t *)rd->acc) != 0) {
         return ERR_RD_A;
     }
