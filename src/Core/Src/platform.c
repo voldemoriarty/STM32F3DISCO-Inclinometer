@@ -8,6 +8,7 @@
 #include "platform.h"
 #include "main.h"
 #include "i2c.h"
+#include "tim.h"
 
 void delay_ms(uint32_t ms) {
     HAL_Delay(ms);
@@ -36,4 +37,26 @@ int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff) {
         return 0;
     else
         return 1;
+}
+
+uint16_t get_ticks_us() {
+	return (uint16_t)(TIM7->CNT & 0xffff);
+}
+
+uint32_t get_elapsed_us(uint16_t prev) {
+	uint32_t now;
+
+	now = get_ticks_us();
+
+	// If the timer has rolled over once or more, then current value
+	// will start from 0 and hence will be less then prev. To cater this
+	// we will add timer max value to now reading. Since we dont know
+	// how many times the timer rolled over, we will assume it's 1 and
+	// hope that the function wont be used to measure times beyond it's
+	// range (~ 65ms)
+	if (now <= prev) {
+		now += 0x10000;
+	}
+
+	return (now - prev);
 }

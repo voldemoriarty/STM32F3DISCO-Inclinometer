@@ -41,6 +41,7 @@ static void error_acc_read() {
 
 void boot() {
     LSM303AGR_Readings rd;
+    uint16_t tick;
     int i;
 
     boot_message();
@@ -53,9 +54,11 @@ void boot() {
     delay_ms(250);
 
     while (1) {
+    	tick = get_ticks_us();
         if (lsm303agr_measure(&rd) != ERR_NONE) {
             error_acc_read();
         }
+        printf("[%3lu us] ", get_elapsed_us(tick));
 
         printf("Acc Buff: [");
         for (i = 0; i < 3; ++i) {
