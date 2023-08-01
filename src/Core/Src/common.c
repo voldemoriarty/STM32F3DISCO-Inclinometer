@@ -11,7 +11,7 @@
 #include "platform.h"
 
 static void error_acc_init() {
-	__disable_irq();
+	disable_interrupts();
 
 	led_off(0);
 	led_off(1);
@@ -22,7 +22,7 @@ static void error_acc_init() {
 }
 
 static void error_acc_read() {
-	__disable_irq();
+	disable_interrupts();
 
 	led_off(0);
 	led_off(1);

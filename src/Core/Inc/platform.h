@@ -26,4 +26,7 @@ void led_on(unsigned led);
 void led_off(unsigned led);
 void led_toggle(unsigned led);
 
+// interrupt functions
+void disable_interrupts();
+
 #endif /* INC_PLATFORM_H_ */

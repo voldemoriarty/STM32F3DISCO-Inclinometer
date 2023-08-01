@@ -72,3 +72,7 @@ void led_off(unsigned led) {
 void led_toggle(unsigned led) {
 	GPIOE->ODR ^= (1 << (led+8));
 }
+
+void disable_interrupts() {
+	__disable_irq();
+}
