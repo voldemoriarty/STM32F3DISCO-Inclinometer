@@ -46,8 +46,6 @@ void boot() {
         error_acc_init();
     }
     puts("Acc init complete!\r");
-
-    delay_ms(70);
 }
 
 uint16_t tick = 0;

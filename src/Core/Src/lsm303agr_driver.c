@@ -171,6 +171,9 @@ LSM303AGR_Error lsm303agr_init() {
         puts("Error setting CFG_REG_C_M\r");
         return ERR_WR_M;
     }
+
+    // wait for sensor to turn on. Data available in datasheet
+    delay_ms(70);
     return ERR_NONE;
 }
 
