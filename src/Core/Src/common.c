@@ -45,18 +45,21 @@ void boot() {
     led_on(0);
 }
 
-uint16_t tick = 0;
+uint32_t elapsed_us = 0;
 uint64_t t_ms = 0;
 
 void loop() {
 	LSM303AGR_Readings rd;
+	uint16_t tick;
 
+	tick = get_ticks_us();
 	t_ms += 10;
 
 	heart_beat(t_ms);
 
-	tick = get_ticks_us();
 	if (lsm303agr_measure(&rd) != ERR_NONE) {
 		error_acc_read();
 	}
+
+	elapsed_us = get_elapsed_us(tick);
 }
