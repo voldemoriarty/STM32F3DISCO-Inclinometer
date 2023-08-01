@@ -11,12 +11,22 @@
 #include "platform.h"
 
 static void error_acc_init() {
+	__disable_irq();
+
+	led_off(0);
+	led_off(1);
+	led_on(2);
 	// halt the device
     while (1)
         ;
 }
 
 static void error_acc_read() {
+	__disable_irq();
+
+	led_off(0);
+	led_off(1);
+	led_on(3);
     // halt the device
     while (1)
         ;
