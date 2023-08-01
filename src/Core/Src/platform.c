@@ -60,3 +60,15 @@ uint32_t get_elapsed_us(uint16_t prev) {
 
 	return (now - prev);
 }
+
+void led_on(unsigned led) {
+	GPIOE->ODR |= (1 << (led+8));
+}
+
+void led_off(unsigned led) {
+	GPIOE->BRR |= (1 << (led+8));
+}
+
+void led_toggle(unsigned led) {
+	GPIOE->ODR ^= (1 << (led+8));
+}

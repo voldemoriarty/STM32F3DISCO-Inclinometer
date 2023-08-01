@@ -21,4 +21,9 @@ int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff);
 uint16_t get_ticks_us();
 uint32_t get_elapsed_us(uint16_t prev);
 
+// LED functions
+void led_on(unsigned led);
+void led_off(unsigned led);
+void led_toggle(unsigned led);
+
 #endif /* INC_PLATFORM_H_ */
