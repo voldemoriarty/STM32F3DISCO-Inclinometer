@@ -62,24 +62,29 @@
 #define ACC_WHOAMI      0x33
 #define MAG_WHOAMI      0x40
 
-static int read_acc_reg(uint16_t reg, uint16_t len, uint8_t *buff) {
+static int read_acc_reg(uint16_t reg, uint16_t len, uint8_t *buff)
+{
     return read_i2c_reg(ACC_I2C_ADDR_RD, reg, len, buff);
 }
 
-static int read_mag_reg(uint16_t reg, uint16_t len, uint8_t *buff) {
+static int read_mag_reg(uint16_t reg, uint16_t len, uint8_t *buff)
+{
     return read_i2c_reg(MAG_I2C_ADDR_RD, reg, len, buff);
 }
 
-static int write_acc_reg(uint16_t reg, uint8_t val) {
+static int write_acc_reg(uint16_t reg, uint8_t val)
+{
     return write_i2c_reg(ACC_I2C_ADDR_WR, reg, val);
 }
 
-static int write_mag_reg(uint16_t reg, uint8_t val) {
+static int write_mag_reg(uint16_t reg, uint8_t val)
+{
     return write_i2c_reg(MAG_I2C_ADDR_WR, reg, val);
 }
 
 // write acc register with verification. Write & read back value
-static LSM303AGR_Error write_acc_reg_v(uint16_t reg, uint8_t val) {
+static LSM303AGR_Error write_acc_reg_v(uint16_t reg, uint8_t val)
+{
     int tmp;
     uint8_t buff;
 
@@ -101,7 +106,8 @@ static LSM303AGR_Error write_acc_reg_v(uint16_t reg, uint8_t val) {
 }
 
 // write mag register with verification. Write & read back value
-static LSM303AGR_Error write_mag_reg_v(uint16_t reg, uint8_t val) {
+static LSM303AGR_Error write_mag_reg_v(uint16_t reg, uint8_t val)
+{
     int tmp;
     uint8_t buff;
 
@@ -122,7 +128,8 @@ static LSM303AGR_Error write_mag_reg_v(uint16_t reg, uint8_t val) {
     }
 }
 
-LSM303AGR_Error lsm303agr_init() {
+LSM303AGR_Error lsm303agr_init()
+{
     uint8_t tmp;
 
     // read who_am_i register to identify device. Error out on mismatch
@@ -167,7 +174,8 @@ LSM303AGR_Error lsm303agr_init() {
     return ERR_NONE;
 }
 
-LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd) {
+LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd)
+{
     int i;
 
     // read TEMP_L & TEMP_H registers into 16bit field.

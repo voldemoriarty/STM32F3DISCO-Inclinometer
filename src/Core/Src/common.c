@@ -10,45 +10,50 @@
 #include "main.h"
 #include "platform.h"
 
-static void error_acc_init() {
+static void error_acc_init()
+{
 	disable_interrupts();
 
-	led_off(0);
-	led_off(1);
-	led_on(2);
+	led_off(BOOT_LED);
+	led_off(LED_HB);
+	led_on(LED_SENS_ERR);
 	// halt the device
     while (1)
         ;
 }
 
-static void error_acc_read() {
+static void error_acc_read()
+{
 	disable_interrupts();
 
-	led_off(0);
-	led_off(1);
-	led_on(3);
+	led_off(BOOT_LED);
+	led_off(LED_HB);
+	led_on(LED_SENS_ERR);
     // halt the device
     while (1)
         ;
 }
 
-static void heart_beat(uint64_t t_ms) {
+static void heart_beat(uint64_t t_ms)
+{
 	if (t_ms % 250 == 0) {
-		led_toggle(1);
+		led_toggle(LED_HB);
 	}
 }
 
-void boot() {
+void boot()
+{
     if (lsm303agr_init() != ERR_NONE) {
         error_acc_init();
     }
-    led_on(0);
+    led_on(BOOT_LED);
 }
 
 uint32_t elapsed_us = 0;
 uint64_t t_ms = 0;
 
-void loop() {
+void loop()
+{
 	LSM303AGR_Readings rd;
 	uint16_t tick;
 

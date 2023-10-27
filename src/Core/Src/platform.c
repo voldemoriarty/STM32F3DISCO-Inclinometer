@@ -10,11 +10,13 @@
 #include "i2c.h"
 #include "tim.h"
 
-void delay_ms(uint32_t ms) {
+void delay_ms(uint32_t ms)
+{
     HAL_Delay(ms);
 }
 
-int write_i2c_reg(uint8_t addr, uint16_t reg, uint8_t value) {
+int write_i2c_reg(uint8_t addr, uint16_t reg, uint8_t value)
+{
     HAL_StatusTypeDef ret;
     ret = HAL_I2C_Mem_Write(&hi2c1, addr, reg, 1, &value, 1, HAL_MAX_DELAY);
 
@@ -24,7 +26,8 @@ int write_i2c_reg(uint8_t addr, uint16_t reg, uint8_t value) {
         return 1;
 }
 
-int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff) {
+int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff)
+{
     HAL_StatusTypeDef ret;
 
     // MSB is high for multi byte reads
@@ -39,11 +42,13 @@ int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff) {
         return 1;
 }
 
-uint16_t get_ticks_us() {
+uint16_t get_ticks_us()
+{
 	return (uint16_t)(TIM7->CNT & 0xffff);
 }
 
-uint32_t get_elapsed_us(uint16_t prev) {
+uint32_t get_elapsed_us(uint16_t prev)
+{
 	uint32_t now;
 
 	now = get_ticks_us();
@@ -61,18 +66,22 @@ uint32_t get_elapsed_us(uint16_t prev) {
 	return (now - prev);
 }
 
-void led_on(unsigned led) {
+void led_on(unsigned led)
+{
 	GPIOE->ODR |= (1 << (led+8));
 }
 
-void led_off(unsigned led) {
+void led_off(unsigned led)
+{
 	GPIOE->BRR |= (1 << (led+8));
 }
 
-void led_toggle(unsigned led) {
+void led_toggle(unsigned led)
+{
 	GPIOE->ODR ^= (1 << (led+8));
 }
 
-void disable_interrupts() {
+void disable_interrupts()
+{
 	__disable_irq();
 }
