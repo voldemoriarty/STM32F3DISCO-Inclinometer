@@ -32,11 +32,6 @@
 
 #include "usart.h"
 
-/* Variables */
-extern int __io_putchar(int ch) __attribute__((weak));
-extern int __io_getchar(void) __attribute__((weak));
-
-
 char *__env[1] = { 0 };
 char **environ = __env;
 
@@ -63,7 +58,7 @@ void _exit (int status)
 	while (1) {}		/* Make sure we hang here */
 }
 
-__attribute__((weak)) int _read(int file, char *ptr, int len)
+int _read(int file, char *ptr, int len)
 {
 	HAL_StatusTypeDef ret;
 	ret = HAL_UART_Receive(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
@@ -74,7 +69,7 @@ __attribute__((weak)) int _read(int file, char *ptr, int len)
 		return 0;
 }
 
-__attribute__((weak)) int _write(int file, char *ptr, int len)
+int _write(int file, char *ptr, int len)
 {
 	HAL_StatusTypeDef ret;
 	ret = HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
