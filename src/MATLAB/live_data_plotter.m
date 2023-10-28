@@ -1,11 +1,8 @@
 clearvars
 
-device = serialport('COM3', 921600, 'ByteOrder', 'little-endian');
+device = serialport('COM3', 115200, 'ByteOrder', 'little-endian');
 
-bufsize = 4;
 preamblesize = 4;
-
-buffer   = uint8(zeros(1,bufsize));
 preamble = uint8([0x69, 0x42, 0x69, 0x42]);
 
 device.flush();
@@ -13,9 +10,10 @@ device.flush();
 rdbuf = device.read(4, 'uint8');
 
 % align data using preamble
-
+disp('Syncing with device');
 while any(preamble ~= rdbuf(1:preamblesize))
-    buffer = [buffer(2:end), device.read(1, 'uint8')];
+    rdbuf = [rdbuf(2:end), device.read(1, 'uint8')];
 end
+disp('Synced');
 
 data = read_data(device)
