@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{f1c9a27b-7215-4fd2-8782-ea895b24ca1a}</ProjectGuid>
+    <RootNamespace>STM32F3DISCOInclinometer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DEBUG;USE_HAL_DRIVER;STM32F303xC;__TASKING__;__packed__=;__weak=;__attribute__(x)=;__DSB()=;__ISB()=;__NOP()=;weak=1</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc\Legacy;$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc;$(ProjectDir)..\src\Drivers\CMSIS\Device\ST\STM32F3xx\Include;$(ProjectDir)..\src\Drivers\CMSIS\Include;$(ProjectDir)..\src\Core\Inc;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4006;4312;33011;4013;4273%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);USE_HAL_DRIVER;STM32F303xC;__TASKING__;__packed__=;__weak=;__attribute__(x)=;__DSB()=;__ISB()=;__NOP()=;weak=1</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc\Legacy;$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc;$(ProjectDir)..\src\Drivers\CMSIS\Device\ST\STM32F3xx\Include;$(ProjectDir)..\src\Drivers\CMSIS\Include;$(ProjectDir)..\src\Core\Inc;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4006;4312;33011;4013;4273%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <AssemblerOutput>AssemblyAndSourceCode</AssemblerOutput>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);DEBUG;USE_HAL_DRIVER;STM32F303xC;__TASKING__;__packed__=;__weak=;__attribute__(x)=;__DSB()=;__ISB()=;__NOP()=;weak=1</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc\Legacy;$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc;$(ProjectDir)..\src\Drivers\CMSIS\Device\ST\STM32F3xx\Include;$(ProjectDir)..\src\Drivers\CMSIS\Include;$(ProjectDir)..\src\Core\Inc;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4006;4312;33011;4013;4273%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);USE_HAL_DRIVER;STM32F303xC;__TASKING__;__packed__</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc\Legacy;$(ProjectDir)..\src\Drivers\STM32F3xx_HAL_Driver\Inc;$(ProjectDir)..\src\Drivers\CMSIS\Device\ST\STM32F3xx\Include;$(ProjectDir)..\src\Drivers\CMSIS\Include;$(ProjectDir)..\src\Core\Inc;.;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="..\src\.cproject" />
+    <None Include="..\src\.mxproject" />
+    <None Include="..\src\.project" />
+    <None Include="..\src\Core\Startup\startup_stm32f303vctx.s" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Core\Inc\common.h" />
+    <ClInclude Include="..\src\Core\Inc\gpio.h" />
+    <ClInclude Include="..\src\Core\Inc\i2c.h" />
+    <ClInclude Include="..\src\Core\Inc\lsm303agr_driver.h" />
+    <ClInclude Include="..\src\Core\Inc\main.h" />
+    <ClInclude Include="..\src\Core\Inc\platform.h" />
+    <ClInclude Include="..\src\Core\Inc\spi.h" />
+    <ClInclude Include="..\src\Core\Inc\stm32f3xx_hal_conf.h" />
+    <ClInclude Include="..\src\Core\Inc\stm32f3xx_it.h" />
+    <ClInclude Include="..\src\Core\Inc\tim.h" />
+    <ClInclude Include="..\src\Core\Inc\usart.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Device\ST\STM32F3xx\Include\stm32f303xc.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Device\ST\STM32F3xx\Include\stm32f3xx.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Device\ST\STM32F3xx\Include\system_stm32f3xx.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\cmsis_armcc.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\cmsis_armclang.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\cmsis_compiler.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\cmsis_gcc.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\cmsis_iccarm.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\cmsis_version.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_armv8mbl.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_armv8mml.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm0.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm0plus.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm1.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm23.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm3.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm33.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm4.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_cm7.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_sc000.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\core_sc300.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\mpu_armv7.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\mpu_armv8.h" />
+    <ClInclude Include="..\src\Drivers\CMSIS\Include\tz_context.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_cortex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_def.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_dma.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_dma_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_exti.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_flash.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_flash_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_gpio.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_gpio_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_i2c.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_i2c_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_pwr.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_pwr_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_rcc.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_rcc_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_spi.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_spi_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_tim.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_tim_ex.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_uart.h" />
+    <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\stm32f3xx_hal_uart_ex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Core\Src\common.c" />
+    <ClCompile Include="..\src\Core\Src\gpio.c" />
+    <ClCompile Include="..\src\Core\Src\i2c.c" />
+    <ClCompile Include="..\src\Core\Src\lsm303agr_driver.c" />
+    <ClCompile Include="..\src\Core\Src\main.c" />
+    <ClCompile Include="..\src\Core\Src\platform.c" />
+    <ClCompile Include="..\src\Core\Src\spi.c" />
+    <ClCompile Include="..\src\Core\Src\stm32f3xx_hal_msp.c" />
+    <ClCompile Include="..\src\Core\Src\stm32f3xx_it.c" />
+    <ClCompile Include="..\src\Core\Src\syscalls.c" />
+    <ClCompile Include="..\src\Core\Src\sysmem.c" />
+    <ClCompile Include="..\src\Core\Src\system_stm32f3xx.c" />
+    <ClCompile Include="..\src\Core\Src\tim.c" />
+    <ClCompile Include="..\src\Core\Src\usart.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_exti.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_i2c_ex.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr_ex.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_spi.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_spi_ex.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart.c" />
+    <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_uart_ex.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
