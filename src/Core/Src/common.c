@@ -10,6 +10,13 @@
 #include "main.h"
 #include "platform.h"
 
+// =================== GLOBALS ======================
+
+uint32_t elapsed_us = 0;
+uint64_t t_ms = 0;
+
+// ================== FUNCTIONS =====================
+
 static void error_acc_init()
 {
 	disable_interrupts();
@@ -48,9 +55,6 @@ void boot()
     }
     led_on(BOOT_LED);
 }
-
-uint32_t elapsed_us = 0;
-uint64_t t_ms = 0;
 
 void loop()
 {
