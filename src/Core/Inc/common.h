@@ -12,7 +12,7 @@
 #define LED_HB        (1)
 #define LED_SENS_ERR  (2)
 
-typedef struct {
+typedef struct __attribute__((packed)) {
     uint8_t  preamble[4];
     int16_t  acc[3];
     int16_t  mag[3];
