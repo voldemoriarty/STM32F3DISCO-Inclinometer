@@ -9,11 +9,13 @@
 #include "common.h"
 #include "main.h"
 #include "platform.h"
+#include <string.h>
 
 // =================== GLOBALS ======================
 
 uint32_t elapsed_us = 0;
 uint64_t t_ms = 0;
+Packet_t transmit_pckt = {0};
 
 // ================== FUNCTIONS =====================
 
@@ -54,6 +56,11 @@ void boot()
         error_acc_init();
     }
     led_on(BOOT_LED);
+
+	transmit_pckt.preamble[0] = 0x69;
+	transmit_pckt.preamble[1] = 0x42;
+	transmit_pckt.preamble[2] = 0x69;
+	transmit_pckt.preamble[3] = 0x42;
 }
 
 void loop()
@@ -69,6 +76,12 @@ void loop()
 	if (lsm303agr_measure(&rd) != ERR_NONE) {
 		error_acc_read();
 	}
+
+	memcpy(transmit_pckt.acc, rd.acc, sizeof(transmit_pckt.acc));
+	transmit_pckt.acc_temp  = rd.temp;
+	transmit_pckt.loop_time = elapsed_us;
+
+	write_uart((uint8_t*)&transmit_pckt, sizeof(transmit_pckt));
 
 	elapsed_us = get_elapsed_us(tick);
 }

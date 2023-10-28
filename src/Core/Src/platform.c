@@ -9,6 +9,7 @@
 #include "main.h"
 #include "i2c.h"
 #include "tim.h"
+#include "usart.h"
 
 void delay_ms(uint32_t ms)
 {
@@ -84,4 +85,9 @@ void led_toggle(unsigned led)
 void disable_interrupts()
 {
 	__disable_irq();
+}
+
+void write_uart(uint8_t *buffer, uint16_t len)
+{
+	HAL_UART_Transmit(&huart1, buffer, len, HAL_MAX_DELAY);
 }
