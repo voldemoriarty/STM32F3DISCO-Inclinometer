@@ -6,7 +6,7 @@ clearvars;
 serial_port   = 'COM3';
 baudrate      = 2000000;
 preamble      = uint8([0x69, 0x42, 0x69, 0x42]);
-bufsize       = 5;
+bufsize       = 10;
 t             = zeros(1,bufsize);
 
 h = figure(1);

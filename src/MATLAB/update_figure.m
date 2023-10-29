@@ -1,6 +1,6 @@
 function update_figure(cfg, t, data)
 %update_figure plot data on figure
-    window_size = 10;
+    window_size = 30;
 
     % if figure was closed, return
     if ~ishandle(cfg.acc_ax)

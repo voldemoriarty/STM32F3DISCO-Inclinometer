@@ -11,10 +11,11 @@
 #define BOOT_LED      (0)
 #define LED_HB        (1)
 #define LED_SENS_ERR  (2)
-#define LED_BUTTON    (3)
+#define LED_CALIB     (3)
 #define dt            (10.0e-3f)
 #define dt_ms         (10)
 #define acc_filt_pole (12.5f)
+#define calibration_n (500)
 
 typedef struct __attribute__((packed))
 {

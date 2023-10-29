@@ -10,6 +10,7 @@
 #include "main.h"
 #include "platform.h"
 #include <string.h>
+#include <stdbool.h>
 
 // =================== GLOBALS ======================
 
@@ -17,6 +18,10 @@ uint32_t elapsed_us = 0;
 uint64_t t_ms = 0;
 Packet_t transmit_pckt = { 0 };
 int16_t accf[3] = { 0 };
+int16_t acc_offset[3] = { 0 };
+int16_t acc_corr[3] = { 0 };
+bool calibration = false;
+uint16_t i_calibration = 0;
 
 // ================== FUNCTIONS =====================
 
@@ -61,7 +66,33 @@ static void filter_readings(LSM303AGR_Readings *reading)
 
     for (i = 0; i < 3; ++i) {
         accf[i] += dt * acc_filt_pole * (reading->acc[i] - accf[i]);
+        acc_corr[i] = accf[i] - acc_offset[i];
     }
+}
+
+static void calibration_func()
+{
+    static int32_t sum[3] = {0};
+    const int32_t ref[3] = {0, 0, 1000};
+    unsigned i;
+
+    if (i_calibration == 0) {
+        sum[0] = sum[1] = sum[2] = 0;
+    }
+
+    if (i_calibration == calibration_n) {
+        calibration = false;
+        for (i = 0; i < 3; ++i) {
+            acc_offset[i] = sum[i] / calibration_n;
+        }
+        led_off(LED_CALIB);
+        return;
+    }
+
+    for (i = 0; i < 3; ++i) {
+        sum[i] += (accf[i] - ref[i]);
+    }
+    i_calibration++;
 }
 
 void boot()
@@ -93,7 +124,11 @@ void loop()
 
     filter_readings(&rd);
 
-    memcpy(transmit_pckt.acc, accf, sizeof(transmit_pckt.acc));
+    if (calibration) {
+        calibration_func();
+    }
+
+    memcpy(transmit_pckt.acc, acc_corr, sizeof(transmit_pckt.acc));
     transmit_pckt.acc_temp = rd.temp;
     transmit_pckt.loop_time = elapsed_us;
 
@@ -104,5 +139,7 @@ void loop()
 
 void button_callback()
 {
-    led_toggle(LED_BUTTON);
+    led_on(LED_CALIB);
+    calibration = true;
+    i_calibration = 0;
 }
