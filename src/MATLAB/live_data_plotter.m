@@ -4,7 +4,7 @@
 
 clearvars;
 serial_port   = 'COM3';
-baudrate      = 921600;
+baudrate      = 2000000;
 preamble      = uint8([0x69, 0x42, 0x69, 0x42]);
 bufsize       = 5;
 t             = zeros(1,bufsize);
@@ -25,6 +25,7 @@ idx = 1;
 data(bufsize) = read_data(device);
 data(1) = data(bufsize);
 T0 = datetime;
+info('Loop time: %d us', data(1).loop_time);
 
 while ishandle(h)
     if (idx == bufsize)
