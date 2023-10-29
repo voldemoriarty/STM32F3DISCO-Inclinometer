@@ -103,3 +103,8 @@ void loop()
 
 	elapsed_us = get_elapsed_us(tick);
 }
+
+void button_callback()
+{
+
+}

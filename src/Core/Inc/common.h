@@ -27,5 +27,6 @@ typedef struct __attribute__((packed)) {
 
 void boot();
 void loop();
+void button_callback();
 
 #endif /* INC_COMMON_H_ */
