@@ -33,3 +33,4 @@ while ishandle(h)
 end
 
 info('Figure closed');
+clear device

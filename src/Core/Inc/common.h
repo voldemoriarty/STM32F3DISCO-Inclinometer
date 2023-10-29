@@ -11,6 +11,8 @@
 #define BOOT_LED      (0)
 #define LED_HB        (1)
 #define LED_SENS_ERR  (2)
+#define dt            (10.0e-3f)
+#define acc_filt_pole (12.5f)
 
 typedef struct __attribute__((packed)) {
     uint8_t  preamble[4];

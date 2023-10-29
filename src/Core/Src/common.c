@@ -16,6 +16,7 @@
 uint32_t elapsed_us = 0;
 uint64_t t_ms = 0;
 Packet_t transmit_pckt = {0};
+int16_t  accf[3] = {0};
 
 // ================== FUNCTIONS =====================
 
@@ -50,6 +51,15 @@ static void heart_beat(uint64_t t_ms)
 	}
 }
 
+static void filter_readings(LSM303AGR_Readings *reading)
+{
+	unsigned i;
+
+	for (i = 0; i < 3; ++i) {
+		accf[i] += acc_filt_pole*(reading->acc[i] - accf[i])*dt;
+	}
+}
+
 void boot()
 {
     if (lsm303agr_init() != ERR_NONE) {
@@ -77,7 +87,9 @@ void loop()
 		error_acc_read();
 	}
 
-	memcpy(transmit_pckt.acc, rd.acc, sizeof(transmit_pckt.acc));
+	filter_readings(&rd);
+
+	memcpy(transmit_pckt.acc, accf, sizeof(transmit_pckt.acc));
 	transmit_pckt.acc_temp  = rd.temp;
 	transmit_pckt.loop_time = elapsed_us;
 
