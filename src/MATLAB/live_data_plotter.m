@@ -13,12 +13,14 @@ ax = gca;
 hold(ax, 'on')
 grid(ax, 'on')
 
-al(1) = animatedline(ax, 'Color', 'r', 'LineWidth', 1.5);
-al(2) = animatedline(ax, 'Color', 'b', 'LineWidth', 1.5);
-al(3) = animatedline(ax, 'Color', 'g', 'LineWidth', 1.5);
-m(1) = plot(ax, 0, 0, 'o', 'MarkerFaceColor','r');
-m(2) = plot(ax, 0, 0, 'o', 'MarkerFaceColor','b');
-m(3) = plot(ax, 0, 0, 'o', 'MarkerFaceColor','g');
+al(1) = animatedline(ax, 'Color', 'b', 'LineWidth', 1.5, 'DisplayName', 'acc x');
+al(2) = animatedline(ax, 'Color', 'r', 'LineWidth', 1.5, 'DisplayName', 'acc y');
+al(3) = animatedline(ax, 'Color', 'g', 'LineWidth', 1.5, 'DisplayName', 'acc z');
+m(1) = plot(ax, 0, 0, 'o', 'MarkerFaceColor','b', 'HandleVisibility','off', 'MarkerEdgeColor', 'none', 'MarkerSize', 7.5);
+m(2) = plot(ax, 0, 0, 'o', 'MarkerFaceColor','r', 'HandleVisibility','off', 'MarkerEdgeColor', 'none', 'MarkerSize', 7.5);
+m(3) = plot(ax, 0, 0, 'o', 'MarkerFaceColor','g', 'HandleVisibility','off', 'MarkerEdgeColor', 'none', 'MarkerSize', 7.5);
+
+legend(ax, 'show')
 
 % align data using preamble
 disp('Syncing with device');
