@@ -17,5 +17,15 @@ function update_figure(cfg, t, data)
     % lower limit is always >= 0
     % upper limit is always >= window_size
     set(cfg.acc_ax, 'XLim', [max(0, t-window_size), max(window_size, t)]);
+
+%% Angle plots
+    set(cfg.ang_m(1), 'XData', t, 'YData', data.theta);
+    addpoints(cfg.ang_al(1), t, data.theta);
+    set(cfg.ang_m(2), 'XData', t, 'YData', data.phi);
+    addpoints(cfg.ang_al(2), t, data.phi);
+
+    % lower limit is always >= 0
+    % upper limit is always >= window_size
+    set(cfg.ang_ax, 'XLim', [max(0, t-window_size), max(window_size, t)]);
     drawnow limitrate
 end
