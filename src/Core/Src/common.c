@@ -44,10 +44,16 @@ static void error_acc_read()
         ;
 }
 
-static void heart_beat(uint64_t t_ms)
+static void heart_beat()
 {
-	if (t_ms % 250 == 0) {
+	static uint16_t counter_ms = 0;
+
+	if (counter_ms == 250) {
 		led_toggle(LED_HB);
+		counter_ms = 0;
+	}
+	else {
+		counter_ms += dt_ms;
 	}
 }
 
@@ -79,9 +85,9 @@ void loop()
 	uint16_t tick;
 
 	tick = get_ticks_us();
-	t_ms += 10;
+	t_ms += dt_ms;
 
-	heart_beat(t_ms);
+	heart_beat();
 
 	if (lsm303agr_measure(&rd) != ERR_NONE) {
 		error_acc_read();
