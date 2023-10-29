@@ -62,7 +62,7 @@ static void filter_readings(LSM303AGR_Readings *reading)
 	unsigned i;
 
 	for (i = 0; i < 3; ++i) {
-		accf[i] += acc_filt_pole*(reading->acc[i] - accf[i])*dt;
+		accf[i] += dt*acc_filt_pole*(reading->acc[i] - accf[i]);
 	}
 }
 
