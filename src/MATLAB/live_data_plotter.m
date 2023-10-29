@@ -3,9 +3,11 @@
 % z up
 
 clearvars;
-serial_port  = 'COM3';
-baudrate     = 115200;
-preamble     = uint8([0x69, 0x42, 0x69, 0x42]);
+serial_port   = 'COM3';
+baudrate      = 115200;
+preamble      = uint8([0x69, 0x42, 0x69, 0x42]);
+bufsize       = 5;
+t             = zeros(1,bufsize);
 
 h = figure(1);
 cfg = init_figure(h);
@@ -19,17 +21,22 @@ sync_preamble(device, preamble);
 info('Synced');
 
 % read data 
-data = read_data(device);
+idx = 1;
+data(bufsize) = read_data(device);
+data(1) = data(bufsize);
 T0 = datetime;
-t = 0;
 
 while ishandle(h)
-    % plot data
-    update_figure(cfg, t, data);
-
+    if (idx == bufsize)
+        % plot data
+        update_figure(cfg, t, data);
+        idx = 0;
+    end
+    
     % get new data from device
-    data = read_data_preamb(device);
-    t = seconds(datetime - T0);
+    idx = idx + 1;
+    data(idx) = read_data_preamb(device);
+    t(idx) = seconds(datetime - T0);
 end
 
 info('Figure closed');
