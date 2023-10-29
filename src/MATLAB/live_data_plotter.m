@@ -4,7 +4,7 @@
 
 clearvars;
 serial_port   = 'COM3';
-baudrate      = 115200;
+baudrate      = 921600;
 preamble      = uint8([0x69, 0x42, 0x69, 0x42]);
 bufsize       = 5;
 t             = zeros(1,bufsize);
