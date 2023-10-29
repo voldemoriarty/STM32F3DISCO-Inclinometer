@@ -100,7 +100,8 @@ static LSM303AGR_Error write_acc_reg_v(uint16_t reg, uint8_t val)
 
     if (buff == val) {
         return ERR_NONE;
-    } else {
+    }
+    else {
         return ERR_WR_A;
     }
 }
@@ -123,7 +124,8 @@ static LSM303AGR_Error write_mag_reg_v(uint16_t reg, uint8_t val)
 
     if (buff == val) {
         return ERR_NONE;
-    } else {
+    }
+    else {
         return ERR_WR_M;
     }
 }
@@ -155,7 +157,8 @@ LSM303AGR_Error lsm303agr_init()
     }
 
     // Set full scale, BDU (required for temperature) & High resolution mode in CTR4 (CTR4 = CTR + 3)
-    if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN | ACC_HR_EN) != ERR_NONE) {
+    if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN | ACC_HR_EN)
+            != ERR_NONE) {
         return ERR_WR_A;
     }
 
@@ -179,8 +182,8 @@ LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd)
     int i;
 
     // read TEMP_L & TEMP_H registers into 16bit field.
-    if (read_acc_reg(REG_TMP_A, 2, (uint8_t *)&rd->temp) != 0) {
-       return ERR_RD_A;
+    if (read_acc_reg(REG_TMP_A, 2, (uint8_t*) &rd->temp) != 0) {
+        return ERR_RD_A;
     }
 
     // data is 8bit left justified. Compensate for it & add offset
@@ -188,7 +191,7 @@ LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd)
     rd->temp += 25;
 
     // read all out registers at once.
-    if (read_acc_reg(REG_OUT_A, 6, (uint8_t *)rd->acc) != 0) {
+    if (read_acc_reg(REG_OUT_A, 6, (uint8_t*) rd->acc) != 0) {
         return ERR_RD_A;
     }
 

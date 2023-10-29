@@ -45,49 +45,49 @@ int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff)
 
 uint16_t get_ticks_us()
 {
-	return (uint16_t)(TIM7->CNT & 0xffff);
+    return (uint16_t) (TIM7->CNT & 0xffff);
 }
 
 uint32_t get_elapsed_us(uint16_t prev)
 {
-	uint32_t now;
+    uint32_t now;
 
-	now = get_ticks_us();
+    now = get_ticks_us();
 
-	// If the timer has rolled over once or more, then current value
-	// will start from 0 and hence will be less then prev. To cater this
-	// we will add timer max value to now reading. Since we dont know
-	// how many times the timer rolled over, we will assume it's 1 and
-	// hope that the function wont be used to measure times beyond it's
-	// range (~ 65ms)
-	if (now <= prev) {
-		now += 0x10000;
-	}
+    // If the timer has rolled over once or more, then current value
+    // will start from 0 and hence will be less then prev. To cater this
+    // we will add timer max value to now reading. Since we dont know
+    // how many times the timer rolled over, we will assume it's 1 and
+    // hope that the function wont be used to measure times beyond it's
+    // range (~ 65ms)
+    if (now <= prev) {
+        now += 0x10000;
+    }
 
-	return (now - prev);
+    return (now - prev);
 }
 
 void led_on(unsigned led)
 {
-	GPIOE->ODR |= (1 << (led+8));
+    GPIOE->ODR |= (1 << (led + 8));
 }
 
 void led_off(unsigned led)
 {
-	GPIOE->BRR |= (1 << (led+8));
+    GPIOE->BRR |= (1 << (led + 8));
 }
 
 void led_toggle(unsigned led)
 {
-	GPIOE->ODR ^= (1 << (led+8));
+    GPIOE->ODR ^= (1 << (led + 8));
 }
 
 void disable_interrupts()
 {
-	__disable_irq();
+    __disable_irq();
 }
 
 void write_uart(uint8_t *buffer, uint16_t len)
 {
-	HAL_UART_Transmit(&huart1, buffer, len, HAL_MAX_DELAY);
+    HAL_UART_Transmit(&huart1, buffer, len, HAL_MAX_DELAY);
 }
