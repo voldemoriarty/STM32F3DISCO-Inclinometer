@@ -1,60 +1,60 @@
 /**
-  ******************************************************************************
-  * @file    stm32f3xx.h
-  * @author  MCD Application Team
-  * @brief   CMSIS STM32F3xx Device Peripheral Access Layer Header File.           
-  *            
-  *          The file is the unique include file that the application programmer
-  *          is using in the C source code, usually in main.c. This file contains:
-  *           - Configuration section that allows to select:
-  *              - The STM32F3xx device used in the target application
-  *              - To use or not the peripheral's drivers in application code(i.e. 
-  *                code will be based on direct access to peripheral's registers 
-  *                rather than drivers API), this option is controlled by 
-  *                "#define USE_HAL_DRIVER"
-  *  
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    stm32f3xx.h
+ * @author  MCD Application Team
+ * @brief   CMSIS STM32F3xx Device Peripheral Access Layer Header File.           
+ *            
+ *          The file is the unique include file that the application programmer
+ *          is using in the C source code, usually in main.c. This file contains:
+ *           - Configuration section that allows to select:
+ *              - The STM32F3xx device used in the target application
+ *              - To use or not the peripheral's drivers in application code(i.e. 
+ *                code will be based on direct access to peripheral's registers 
+ *                rather than drivers API), this option is controlled by 
+ *                "#define USE_HAL_DRIVER"
+ *  
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2016 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 
 /** @addtogroup CMSIS
-  * @{
-  */
+ * @{
+ */
 
 /** @addtogroup stm32f3xx
-  * @{
-  */
-    
+ * @{
+ */
+
 #ifndef __STM32F3xx_H
 #define __STM32F3xx_H
 
 #ifdef __cplusplus
  extern "C" {
 #endif /* __cplusplus */
-   
+
 /** @addtogroup Library_configuration_section
-  * @{
-  */
+ * @{
+ */
 
 /**
-  * @brief STM32 Family
-  */
+ * @brief STM32 Family
+ */
 #if !defined (STM32F3)
 #define STM32F3
 #endif /* STM32F3 */
 
 /* Uncomment the line below according to the target STM32 device used in your
-   application 
-  */
+ application 
+ */
 
 #if !defined (STM32F301x8) && !defined (STM32F302x8) && !defined (STM32F318xx) && \
     !defined (STM32F302xC) && !defined (STM32F303xC) && !defined (STM32F358xx) && \
@@ -88,10 +88,10 @@
   /* #define STM32F378xx */   /*!< STM32F378CC, STM32F378RC, STM32F378VC: STM32F373xC with regulator off: STM32F378xx Devices */
   /* #define STM32F398xx */   /*!< STM32F398VE: STM32F303xE with regulator off: STM32F398xx Devices */
 #endif
-   
+
 /*  Tip: To avoid modifying this file each time you need to switch between these
-        devices, you can define the device in your toolchain compiler preprocessor.
-  */
+ devices, you can define the device in your toolchain compiler preprocessor.
+ */
 #if !defined  (USE_HAL_DRIVER)
 /**
  * @brief Comment the line below if you will not use the peripherals drivers.
@@ -102,8 +102,8 @@
 #endif /* USE_HAL_DRIVER */
 
 /**
-  * @brief CMSIS Device version number V2.3.7
-  */
+ * @brief CMSIS Device version number V2.3.7
+ */
 #define __STM32F3_CMSIS_VERSION_MAIN   (0x02) /*!< [31:24] main version */
 #define __STM32F3_CMSIS_VERSION_SUB1   (0x03) /*!< [23:16] sub1 version */
 #define __STM32F3_CMSIS_VERSION_SUB2   (0x07) /*!< [15:8]  sub2 version */
@@ -114,12 +114,12 @@
                                        |(__STM32F3_CMSIS_VERSION_RC))
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @addtogroup Device_Included
-  * @{
-  */
+ * @{
+ */
 
 #if defined(STM32F301x8)
   #include "stm32f301x8.h"
@@ -132,7 +132,7 @@
 #elif defined(STM32F303x8)
   #include "stm32f303x8.h"
 #elif defined(STM32F303xC)
-  #include "stm32f303xc.h"
+#include "stm32f303xc.h"
 #elif defined(STM32F303xE)
   #include "stm32f303xe.h"
 #elif defined(STM32F373xC)
@@ -154,39 +154,35 @@
 #endif
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @addtogroup Exported_types
-  * @{
-  */ 
-typedef enum 
+ * @{
+ */
+typedef enum
 {
-  RESET = 0U, 
-  SET = !RESET
+    RESET = 0U, SET = !RESET
 } FlagStatus, ITStatus;
 
-typedef enum 
+typedef enum
 {
-  DISABLE = 0U, 
-  ENABLE = !DISABLE
+    DISABLE = 0U, ENABLE = !DISABLE
 } FunctionalState;
 #define IS_FUNCTIONAL_STATE(STATE) (((STATE) == DISABLE) || ((STATE) == ENABLE))
 
-typedef enum 
+typedef enum
 {
-  SUCCESS = 0U,
-  ERROR = !SUCCESS
+    SUCCESS = 0U, ERROR = !SUCCESS
 } ErrorStatus;
 
 /**
-  * @}
-  */
-
+ * @}
+ */
 
 /** @addtogroup Exported_macros
-  * @{
-  */
+ * @{
+ */
 #define SET_BIT(REG, BIT)     ((REG) |= (BIT))
 
 #define CLEAR_BIT(REG, BIT)   ((REG) &= ~(BIT))
@@ -259,11 +255,11 @@ typedef enum
   } while(0)
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 #if defined (USE_HAL_DRIVER)
- #include "stm32f3xx_hal.h"
+#include "stm32f3xx_hal.h"
 #endif /* USE_HAL_DRIVER */
 
 #ifdef __cplusplus
@@ -272,9 +268,9 @@ typedef enum
 
 #endif /* __STM32F3xx_H */
 /**
-  * @}
-  */
+ * @}
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */

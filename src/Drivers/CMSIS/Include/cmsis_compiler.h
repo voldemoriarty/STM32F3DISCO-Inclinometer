@@ -45,8 +45,7 @@
  * GNU Compiler
  */
 #elif defined ( __GNUC__ )
-  #include "cmsis_gcc.h"
-
+#include "cmsis_gcc.h"
 
 /*
  * IAR Compiler
@@ -143,7 +142,7 @@
     #define __STATIC_FORCEINLINE                   __STATIC_INLINE
   #endif
   #ifndef   __NO_RETURN
-    #define __NO_RETURN                            
+    #define __NO_RETURN                            __attribute__((noreturn))
   #endif
   #ifndef   __USED
     #define __USED                                 __attribute__((used))
@@ -184,7 +183,7 @@
     #define __ALIGNED(x)              __align(x)
   #endif
   #ifndef   __RESTRICT
-    //#warning No compiler specific solution for __RESTRICT. __RESTRICT is ignored.
+    #warning No compiler specific solution for __RESTRICT. __RESTRICT is ignored.
     #define __RESTRICT
   #endif
 
@@ -260,7 +259,6 @@
 #else
   #error Unknown compiler.
 #endif
-
 
 #endif /* __CMSIS_COMPILER_H */
 
