@@ -46,7 +46,7 @@ static void heart_beat()
 {
     static uint16_t counter_ms = 0;
 
-    if (counter_ms == 250) {
+    if (counter_ms == 500) {
         led_toggle(LED_HB);
         counter_ms = 0;
     }
