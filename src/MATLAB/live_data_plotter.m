@@ -47,6 +47,6 @@ while true
     addpoints(al(2), x, y(2));
     addpoints(al(3), x, y(3));
 
-    xlim(ax, [x-10, x]);
+    xlim(ax, max(0,[x-10, x]));
     drawnow limitrate nocallbacks 
 end
