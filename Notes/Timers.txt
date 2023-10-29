@@ -1,0 +1,2 @@
+TIM6 -> used to trigger loop() @ 10ms
+TIM7 -> used for timing in us
