@@ -27,17 +27,12 @@ uint16_t            i_calibration = 0;
 
 // ================== FUNCTIONS =====================
 
-static void error_led_show()
-{
-    led_off(BOOT_LED);
-    led_off(LED_HB);
-    led_on(LED_SENS_ERR);
-}
-
 static void sensor_error()
 {
     disable_interrupts();
-    error_led_show();
+    led_off(BOOT_LED);
+    led_off(LED_HB);
+    led_on(LED_SENS_ERR);
     // halt the device
     while (1);
 }
