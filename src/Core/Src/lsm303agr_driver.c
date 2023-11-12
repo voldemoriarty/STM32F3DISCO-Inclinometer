@@ -160,7 +160,8 @@ LSM303AGR_Error lsm303agr_init()
     }
 
     // Set full scale, BDU (required for temperature) & High resolution mode in CTR4 (CTR4 = CTR + 3)
-    if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN | ACC_HR_EN) != ERR_NONE) {
+    if (write_acc_reg_v(REG_CTR_A + 3, ACC_FS_2G | ACC_BDU_EN | ACC_HR_EN)
+            != ERR_NONE) {
         return ERR_WR_A;
     }
 
@@ -170,7 +171,8 @@ LSM303AGR_Error lsm303agr_init()
     }
 
     // lpf or offset cancellation settings
-    if (write_mag_reg_v(REG_CFG_B_M, MAG_OFF_CANC | MAG_LPF_ENABLE) != ERR_NONE) {
+    if (write_mag_reg_v(REG_CFG_B_M, MAG_OFF_CANC | MAG_LPF_ENABLE)
+            != ERR_NONE) {
         return ERR_WR_M;
     }
 
@@ -215,8 +217,8 @@ LSM303AGR_Error lsm303agr_measure(LSM303AGR_Readings *rd)
         rd->acc[i] >>= 4;
 
         // apply scaling, based on table 3 of datasheet
-        rd->acc[i] = (int16_t)((float)rd->acc[i] * 0.98f);
-        rd->mag[i] = (int16_t)((float)rd->mag[i] * 1.50f);
+        rd->acc[i] = (int16_t) ((float) rd->acc[i] * 0.98f);
+        rd->mag[i] = (int16_t) ((float) rd->mag[i] * 1.50f);
     }
 
     return ERR_NONE;

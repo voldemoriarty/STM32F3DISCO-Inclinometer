@@ -36,7 +36,6 @@
     _a < _b ? _a : _b;       \
 })
 
-
 typedef struct __attribute__((packed))
 {
     uint8_t preamble[4];

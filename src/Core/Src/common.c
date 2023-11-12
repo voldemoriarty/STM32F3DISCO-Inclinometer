@@ -74,8 +74,8 @@ static void filter_readings(LSM303AGR_Readings *reading)
 
 static void calibration_func()
 {
-    static int32_t sum[3] = {0};
-    const int32_t ref[3] = {0, 0, 1000};
+    static int32_t sum[3] = { 0 };
+    const int32_t ref[3] = { 0, 0, 1000 };
     unsigned i;
 
     if (i_calibration == 0) {
@@ -100,16 +100,17 @@ static void calibration_func()
 static void stream_or_display()
 {
 #if display_mode == 1
-	static uint16_t ms_elapsed = 0;
+    static uint16_t ms_elapsed = 0;
 
-	led_on(LED_DISP);
-	// display frequency
-	if (ms_elapsed == display_frq) {
-		display_packet(&transmit_pckt, max_loop_time);
-		ms_elapsed = 0;
-	} else {
-		ms_elapsed += dt_ms;
-	}
+    led_on(LED_DISP);
+    // display frequency
+    if (ms_elapsed == display_frq) {
+        display_packet(&transmit_pckt, max_loop_time);
+        ms_elapsed = 0;
+    }
+    else {
+        ms_elapsed += dt_ms;
+    }
 #else
     write_uart((uint8_t*) &transmit_pckt, sizeof(transmit_pckt));
 #endif
