@@ -3,7 +3,7 @@ function data = read_data(device)
     data = struct();
     
     % data from device
-    data.acc = device.read(3, 'int16')*0.0098;
+    data.acc = device.read(3, 'int16')*1e-3;
     data.mag = device.read(3, 'int16');
     data.acc_temp = device.read(1, 'int16');
     data.gyro = device.read(3, 'int16');
