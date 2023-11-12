@@ -67,6 +67,9 @@
     <None Include="..\src\Core\Startup\startup_stm32f303vctx.s">
       <Filter>Source Files\Core\Startup</Filter>
     </None>
+    <None Include="..\src\Core\Src\i3g4250d_driver.c">
+      <Filter>Source Files\Core\Src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Inc\common.h">
@@ -242,6 +245,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Drivers\STM32F3xx_HAL_Driver\Inc\Legacy\stm32_hal_legacy.h">
       <Filter>Source Files\Drivers\STM32F3xx_HAL_Driver\Inc\Legacy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Core\Inc\i3g4250d_driver.h">
+      <Filter>Source Files\Core\Inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

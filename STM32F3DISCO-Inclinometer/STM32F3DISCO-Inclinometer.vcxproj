@@ -143,12 +143,14 @@
     <None Include="..\src\.cproject" />
     <None Include="..\src\.mxproject" />
     <None Include="..\src\.project" />
+    <None Include="..\src\Core\Src\i3g4250d_driver.c" />
     <None Include="..\src\Core\Startup\startup_stm32f303vctx.s" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Inc\common.h" />
     <ClInclude Include="..\src\Core\Inc\gpio.h" />
     <ClInclude Include="..\src\Core\Inc\i2c.h" />
+    <ClInclude Include="..\src\Core\Inc\i3g4250d_driver.h" />
     <ClInclude Include="..\src\Core\Inc\lsm303agr_driver.h" />
     <ClInclude Include="..\src\Core\Inc\main.h" />
     <ClInclude Include="..\src\Core\Inc\platform.h" />
