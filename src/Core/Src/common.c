@@ -19,9 +19,9 @@ Sensor_Readings     sensors = { 0 };
 uint32_t            max_loop_time = 0;
 uint64_t            t_ms = 0;
 Packet_t            transmit_pckt = { 0 };
-int16_t             acc_offset[3] = { 0 };
-int16_t             mag_offset[3] = { 0 };
-int16_t             gyro_offset[3] = { 0 };
+float               acc_offset[3] = { 0 };
+float               mag_offset[3] = { 0 };
+float               gyro_offset[3] = { 0 };
 bool                calibration = false;
 uint16_t            i_calibration = 0;
 
@@ -58,17 +58,17 @@ static void filter_readings()
     unsigned i;
 
     for (i = 0; i < 3; ++i) {
-        sensors.accf[i]  += k_acc * (sensors.accl.acc[i] - sensors.accf[i] - acc_offset[i]);
-        sensors.magf[i]  += k_mag * (sensors.accl.mag[i] - sensors.magf[i] - mag_offset[i]);
-        sensors.gyrof[i] += k_gyr * (sensors.gyro.gyro[i] - sensors.gyrof[i] - gyro_offset[i]);
+        sensors.accf[i]  += k_acc * (1.00e-3f * sensors.accl.acc[i] - sensors.accf[i] - acc_offset[i]);
+        sensors.magf[i]  += k_mag * (1.00e-3f * sensors.accl.mag[i] - sensors.magf[i] - mag_offset[i]);
+        sensors.gyrof[i] += k_gyr * (8.75e-3f * sensors.gyro.gyro[i] - sensors.gyrof[i] - gyro_offset[i]);
     }
 }
 
 static void calibration_func()
 {
-    static int32_t sum_acc[3] = { 0 };
-    static int32_t sum_gyr[3] = { 0 };
-    const int32_t ref_acc[3] = { 0, 0, 1000 };
+    static float sum_acc[3] = { 0 };
+    static float sum_gyr[3] = { 0 };
+    const float ref_acc[3] = { 0, 0, 1000 };
     unsigned i;
 
     led_on(LED_CALIB);
@@ -117,9 +117,13 @@ static void stream_or_display()
 
 static void prepare_packet()
 {
-    memcpy(transmit_pckt.acc, sensors.accf, sizeof(transmit_pckt.acc));
-    memcpy(transmit_pckt.mag, sensors.magf, sizeof(transmit_pckt.mag));
-    memcpy(transmit_pckt.gyro, sensors.gyrof, sizeof(transmit_pckt.gyro));
+    unsigned i;
+
+    for (i = 0; i < 3; ++i) {
+        transmit_pckt.acc[i]  = (int16_t)(sensors.accf[i] * 1000.0f);
+        transmit_pckt.mag[i]  = (int16_t)(sensors.magf[i] * 1000.0f);
+        transmit_pckt.gyro[i] = (int16_t)(sensors.gyrof[i] * 10.0f);
+    }
     transmit_pckt.acc_temp  = sensors.accl.temp;
     transmit_pckt.gyro_temp = sensors.gyro.temp;
     transmit_pckt.loop_time = elapsed_us;

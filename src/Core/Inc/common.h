@@ -56,9 +56,9 @@ typedef struct
     LSM303AGR_Readings  accl;
     I3G4250D_Readings   gyro;
 
-    int16_t accf[3];
-    int16_t gyrof[3];
-    int16_t magf[3];
+    float accf[3];
+    float gyrof[3];
+    float magf[3];
 } Sensor_Readings;
 
 void boot();

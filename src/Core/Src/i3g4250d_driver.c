@@ -134,18 +134,12 @@ I3G4250D_Error i3g4250d_init()
 
 I3G4250D_Error i3g4250d_measure(I3G4250D_Readings* rd)
 {
-    int i;
-
     if (read_spi_reg(REG_OUT_TEMP, (uint8_t *) &rd->temp) != 0) {
         return ERR_RD_G;
     }
 
-    if (read_spi_mem(REG_OUT_X_L, (uint8_t*)&rd->gyro, 6) != 0) {
+    if (read_spi_mem(REG_OUT_X_L, (uint8_t *) &rd->gyro, 6) != 0) {
         return ERR_RD_G;
-    }
-
-    for (i = 0; i < 3; ++i) {
-        rd->gyro[i] = (float)rd->gyro[i] * 8.75f;  // Section 2.1 datasheet
     }
 
     return ERR_NONE_G;
