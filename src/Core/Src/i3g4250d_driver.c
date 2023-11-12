@@ -20,5 +20,5 @@ I3G4250D_Error i3g4250d_init()
 
 I3G4250D_Error i3g4250d_measure(I3G4250D_Readings* rd)
 {
-
+    return ERR_NONE_G;
 }
