@@ -76,6 +76,8 @@ static void calibration_func()
     const int32_t ref_acc[3] = { 0, 0, 1000 };
     unsigned i;
 
+    led_on(LED_CALIB);
+
     if (i_calibration == 0) {
         sum_acc[0] = sum_acc[1] = sum_acc[2] = 0;
         sum_gyr[0] = sum_gyr[1] = sum_gyr[2] = 0;
@@ -180,7 +182,6 @@ void loop()
 
 void button_callback()
 {
-    led_on(LED_CALIB);
     calibration = true;
     i_calibration = 0;
 }
