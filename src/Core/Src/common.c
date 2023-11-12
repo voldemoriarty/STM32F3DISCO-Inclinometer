@@ -5,8 +5,6 @@
  *      Author: msaad
  */
 
-#include "lsm303agr_driver.h"
-#include "i3g4250d_driver.h"
 #include "common.h"
 #include "main.h"
 #include "platform.h"
@@ -28,24 +26,17 @@ uint16_t i_calibration = 0;
 
 // ================== FUNCTIONS =====================
 
-static void error_acc_init()
+static void error_led_show()
 {
-    disable_interrupts();
-
     led_off(BOOT_LED);
     led_off(LED_HB);
     led_on(LED_SENS_ERR);
-    // halt the device
-    while (1);
 }
 
-static void error_acc_read()
+static void sensor_error()
 {
     disable_interrupts();
-
-    led_off(BOOT_LED);
-    led_off(LED_HB);
-    led_on(LED_SENS_ERR);
+    error_led_show();
     // halt the device
     while (1);
 }
@@ -117,21 +108,36 @@ static void stream_or_display()
 #endif
 }
 
-static void prepare_packet(LSM303AGR_Readings *rd)
+static void prepare_packet(Sensor_Readings *rd)
 {
     memcpy(transmit_pckt.acc, acc_corr, sizeof(transmit_pckt.acc));
-    memcpy(transmit_pckt.mag, rd->mag, sizeof(transmit_pckt.mag));
-    transmit_pckt.acc_temp = rd->temp;
+    memcpy(transmit_pckt.mag, rd->accl.mag, sizeof(transmit_pckt.mag));
+    memcpy(transmit_pckt.gyro, rd->gyro.gyro, sizeof(transmit_pckt.gyro));
+    transmit_pckt.acc_temp = rd->accl.temp;
+    transmit_pckt.gyro_temp = rd->gyro.temp;
     transmit_pckt.loop_time = elapsed_us;
+}
+
+static void read_sensors(Sensor_Readings* sens_rd)
+{
+    if (lsm303agr_measure(&sens_rd->accl) != ERR_NONE) {
+        sensor_error();
+    }
+
+    if (i3g4250d_measure(&sens_rd->gyro) != ERR_NONE_G) {
+        sensor_error();
+    }
+
+    filter_readings(&sens_rd->accl);
 }
 
 void boot()
 {
     if (lsm303agr_init() != ERR_NONE) {
-        error_acc_init();
+        sensor_error();
     }
     if (i3g4250d_init() != ERR_NONE_G) {
-        error_acc_init();
+        sensor_error();
     }
     led_on(BOOT_LED);
 
@@ -143,25 +149,21 @@ void boot()
 
 void loop()
 {
-    LSM303AGR_Readings rd;
-    uint16_t tick;
+    Sensor_Readings     sensors;
+    uint16_t            tick;
 
     tick = get_ticks_us();
     t_ms += dt_ms;
 
     heart_beat();
 
-    if (lsm303agr_measure(&rd) != ERR_NONE) {
-        error_acc_read();
-    }
-
-    filter_readings(&rd);
+    read_sensors(&sensors);
 
     if (calibration) {
         calibration_func();
     }
 
-    prepare_packet(&rd);
+    prepare_packet(&sensors);
     stream_or_display();
 
     elapsed_us = get_elapsed_us(tick);

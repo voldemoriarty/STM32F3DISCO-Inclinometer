@@ -18,7 +18,7 @@ typedef enum I3G4250D_Error
 typedef struct I3G4250D_Readings
 {
     int16_t gyro[3];
-    int16_t temp;
+    int8_t  temp;
 } I3G4250D_Readings;
 
 I3G4250D_Error i3g4250d_init();

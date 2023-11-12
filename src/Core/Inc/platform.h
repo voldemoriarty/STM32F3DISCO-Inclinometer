@@ -18,8 +18,10 @@ int write_i2c_reg(uint8_t addr, uint16_t reg, uint8_t value);
 int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff);
 
 // spi basic functions
-int write_spi_reg(uint8_t addr, uint16_t reg, uint8_t value);
-int read_spi_reg(uint8_t reg, uint16_t len, uint8_t* buff);
+void spi_select();
+void spi_deselect();
+int spi_tx(uint8_t* bytes, uint16_t len);
+int spi_rx(uint8_t* buffer, uint16_t len);
 
 // uart functions
 void write_uart(uint8_t *buffer, uint16_t len);

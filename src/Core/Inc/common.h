@@ -9,6 +9,8 @@
 #define INC_COMMON_H_
 
 #include <stdint.h>
+#include "lsm303agr_driver.h"
+#include "i3g4250d_driver.h"
 
 #define BOOT_LED      (0)
 #define LED_HB        (1)
@@ -46,6 +48,12 @@ typedef struct __attribute__((packed))
     int16_t gyro_temp;
     uint32_t loop_time;
 } Packet_t;
+
+typedef struct
+{
+    LSM303AGR_Readings  accl;
+    I3G4250D_Readings   gyro;
+} Sensor_Readings;
 
 void boot();
 void loop();
