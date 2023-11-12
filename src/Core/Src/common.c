@@ -19,7 +19,6 @@ Sensor_Readings     sensors = { 0 };
 uint32_t            max_loop_time = 0;
 uint64_t            t_ms = 0;
 Packet_t            transmit_pckt = { 0 };
-int16_t             accf[3] = { 0 };
 int16_t             acc_offset[3] = { 0 };
 int16_t             mag_offset[3] = { 0 };
 int16_t             gyro_offset[3] = { 0 };
@@ -72,26 +71,31 @@ static void filter_readings()
 
 static void calibration_func()
 {
-    static int32_t sum[3] = { 0 };
-    const int32_t ref[3] = { 0, 0, 1000 };
+    static int32_t sum_acc[3] = { 0 };
+    static int32_t sum_gyr[3] = { 0 };
+    const int32_t ref_acc[3] = { 0, 0, 1000 };
     unsigned i;
 
     if (i_calibration == 0) {
-        sum[0] = sum[1] = sum[2] = 0;
+        sum_acc[0] = sum_acc[1] = sum_acc[2] = 0;
+        sum_gyr[0] = sum_gyr[1] = sum_gyr[2] = 0;
     }
 
     if (i_calibration == calibration_n) {
         calibration = false;
         for (i = 0; i < 3; ++i) {
-            acc_offset[i] = sum[i] / calibration_n;
+            acc_offset[i] = sum_acc[i] / calibration_n;
+            gyro_offset[i] = sum_gyr[i] / calibration_n;
         }
         led_off(LED_CALIB);
         return;
     }
 
     for (i = 0; i < 3; ++i) {
-        sum[i] += (accf[i] - ref[i]);
+        sum_acc[i] += (sensors.accl.acc[i] - ref_acc[i]);
+        sum_gyr[i] += (sensors.gyro.gyro[i]);
     }
+
     i_calibration++;
 }
 
