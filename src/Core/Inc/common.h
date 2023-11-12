@@ -12,17 +12,19 @@
 #include "lsm303agr_driver.h"
 #include "i3g4250d_driver.h"
 
-#define BOOT_LED      (0)
-#define LED_HB        (1)
-#define LED_SENS_ERR  (2)
-#define LED_CALIB     (3)
-#define LED_DISP      (4)
-#define dt            (10.0e-3f)
-#define dt_ms         (10)
-#define acc_filt_pole (12.5f)
-#define calibration_n (500)
-#define display_mode  (1)
-#define display_frq   (300)
+#define BOOT_LED        (0)
+#define LED_HB          (1)
+#define LED_SENS_ERR    (2)
+#define LED_CALIB       (3)
+#define LED_DISP        (4)
+#define dt              (10.0e-3f)
+#define dt_ms           (10)
+#define acc_filt_pole   (12.5f)
+#define mag_filt_pole   (50.0f)
+#define gyro_filt_pole  (50.0f)
+#define calibration_n   (500)
+#define display_mode    (1)
+#define display_frq     (300)
 
 #define max(a,b)             \
 ({                           \
@@ -53,6 +55,10 @@ typedef struct
 {
     LSM303AGR_Readings  accl;
     I3G4250D_Readings   gyro;
+
+    int16_t accf[3];
+    int16_t gyrof[3];
+    int16_t magf[3];
 } Sensor_Readings;
 
 void boot();
