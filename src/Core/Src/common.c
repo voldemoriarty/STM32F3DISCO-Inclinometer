@@ -6,6 +6,7 @@
  */
 
 #include "lsm303agr_driver.h"
+#include "i3g4250d_driver.h"
 #include "common.h"
 #include "main.h"
 #include "platform.h"
@@ -127,6 +128,9 @@ static void prepare_packet(LSM303AGR_Readings *rd)
 void boot()
 {
     if (lsm303agr_init() != ERR_NONE) {
+        error_acc_init();
+    }
+    if (i3g4250d_init() != ERR_NONE_G) {
         error_acc_init();
     }
     led_on(BOOT_LED);

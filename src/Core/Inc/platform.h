@@ -17,6 +17,10 @@ void delay_ms(uint32_t ms);
 int write_i2c_reg(uint8_t addr, uint16_t reg, uint8_t value);
 int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff);
 
+// spi basic functions
+int write_spi_reg(uint8_t addr, uint16_t reg, uint8_t value);
+int read_spi_reg(uint8_t reg, uint16_t len, uint8_t* buff);
+
 // uart functions
 void write_uart(uint8_t *buffer, uint16_t len);
 
