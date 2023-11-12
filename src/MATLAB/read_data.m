@@ -6,7 +6,7 @@ function data = read_data(device)
     data.acc = device.read(3, 'int16')*1e-3;
     data.mag = device.read(3, 'int16');
     data.acc_temp = device.read(1, 'int16');
-    data.gyro = device.read(3, 'int16');
+    data.gyro = device.read(3, 'int16')*1e-3;
     data.gyro_temp = device.read(1, 'int16');
     data.loop_time = device.read(1, 'uint32');
 

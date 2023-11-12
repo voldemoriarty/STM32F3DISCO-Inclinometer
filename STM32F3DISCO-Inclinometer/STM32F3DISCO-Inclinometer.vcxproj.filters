@@ -249,6 +249,9 @@
     <ClInclude Include="..\src\Core\Inc\i3g4250d_driver.h">
       <Filter>Source Files\Core\Inc</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Core\Inc\display.h">
+      <Filter>Source Files\Core\Inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Core\Src\common.c">
@@ -349,6 +352,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c">
       <Filter>Source Files\Drivers\STM32F3xx_HAL_Driver\Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Core\Src\display.c">
+      <Filter>Source Files\Core\Src</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -32,5 +32,18 @@ function update_figure(cfg, t, data)
     % lower limit is always >= 0
     % upper limit is always >= window_size
     set(cfg.ang_ax, 'XLim', [max(0, T-window_size), max(window_size, T)]);
+
+%% Gyroscope plots
+    
+    T = t(end);
+    y = reshape([data.gyro]',3,[]);
+    for i = 1:3
+        set(cfg.gyr_m(i), 'XData', T, 'YData', y(i,end));
+        addpoints(cfg.gyr_al(i), t, y(i,:));
+    end
+
+    % lower limit is always >= 0
+    % upper limit is always >= window_size
+    set(cfg.gyr_ax, 'XLim', [max(0, T-window_size), max(window_size, T)]);
     drawnow limitrate
 end

@@ -148,6 +148,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Core\Inc\common.h" />
+    <ClInclude Include="..\src\Core\Inc\display.h" />
     <ClInclude Include="..\src\Core\Inc\gpio.h" />
     <ClInclude Include="..\src\Core\Inc\i2c.h" />
     <ClInclude Include="..\src\Core\Inc\i3g4250d_driver.h" />
@@ -209,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Core\Src\common.c" />
+    <ClCompile Include="..\src\Core\Src\display.c" />
     <ClCompile Include="..\src\Core\Src\gpio.c" />
     <ClCompile Include="..\src\Core\Src\i2c.c" />
     <ClCompile Include="..\src\Core\Src\lsm303agr_driver.c" />

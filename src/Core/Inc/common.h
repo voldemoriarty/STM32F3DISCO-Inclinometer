@@ -23,7 +23,7 @@
 #define mag_filt_pole   (50.0f)
 #define gyro_filt_pole  (50.0f)
 #define calibration_n   (500)
-#define display_mode    (1)
+#define display_mode    (0)
 #define display_frq     (300)
 
 #define max(a,b)             \
