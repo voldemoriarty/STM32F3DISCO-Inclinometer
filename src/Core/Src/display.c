@@ -6,13 +6,16 @@
 #define clear() printf("\033[H\033[J")
 #define gotoxy(x,y) printf("\033[%d;%dH", (y), (x))
 
+#define BUFSIZE 64
+char disp_buffer[BUFSIZE];
+
 void display_packet(Packet_t *p, uint32_t max_loop_time)
 {
     static bool first_time = true;
 
     if (first_time) {
         // fully buffered stream
-        setvbuf(stdout, NULL, _IOFBF, 64);
+        setvbuf(stdout, disp_buffer, _IOFBF, BUFSIZE);
         first_time = false;
     }
 
