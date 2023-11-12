@@ -9,12 +9,14 @@
 #include "common.h"
 #include "main.h"
 #include "platform.h"
+#include "display.h"
 #include <string.h>
 #include <stdbool.h>
 
 // =================== GLOBALS ======================
 
 uint32_t elapsed_us = 0;
+uint32_t max_loop_time = 0;
 uint64_t t_ms = 0;
 Packet_t transmit_pckt = { 0 };
 int16_t accf[3] = { 0 };
@@ -95,6 +97,32 @@ static void calibration_func()
     i_calibration++;
 }
 
+static void stream_or_display()
+{
+#if display_mode == 1
+	static uint16_t ms_elapsed = 0;
+
+	led_on(LED_DISP);
+	// display frequency
+	if (ms_elapsed == display_frq) {
+		display_packet(&transmit_pckt, max_loop_time);
+		ms_elapsed = 0;
+	} else {
+		ms_elapsed += dt_ms;
+	}
+#else
+    write_uart((uint8_t*) &transmit_pckt, sizeof(transmit_pckt));
+#endif
+}
+
+static void prepare_packet(LSM303AGR_Readings *rd)
+{
+    memcpy(transmit_pckt.acc, acc_corr, sizeof(transmit_pckt.acc));
+    memcpy(transmit_pckt.mag, rd->mag, sizeof(transmit_pckt.mag));
+    transmit_pckt.acc_temp = rd->temp;
+    transmit_pckt.loop_time = elapsed_us;
+}
+
 void boot()
 {
     if (lsm303agr_init() != ERR_NONE) {
@@ -128,13 +156,11 @@ void loop()
         calibration_func();
     }
 
-    memcpy(transmit_pckt.acc, acc_corr, sizeof(transmit_pckt.acc));
-    transmit_pckt.acc_temp = rd.temp;
-    transmit_pckt.loop_time = elapsed_us;
-
-    write_uart((uint8_t*) &transmit_pckt, sizeof(transmit_pckt));
+    prepare_packet(&rd);
+    stream_or_display();
 
     elapsed_us = get_elapsed_us(tick);
+    max_loop_time = max(elapsed_us, max_loop_time);
 }
 
 void button_callback()
