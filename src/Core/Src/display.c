@@ -21,7 +21,8 @@ void display_packet(Packet_t *p, uint32_t max_loop_time)
 
 	clear();
 	gotoxy(0, 0);
-	printf("Temp:          %d (C)\r\n", p->acc_temp);
+	printf("Acc Temp:      %d (C)\r\n", p->acc_temp);
+	printf("Gyro Temp:     %d (C)\r\n", p->gyro_temp);
 	printf("Acc:           [%d, %d, %d] (mg)\r\n", p->acc[0], p->acc[1], p->acc[2]);
 	printf("Mag:           [%d, %d, %d] (mgauss)\r\n", p->mag[0], p->mag[1], p->mag[2]);
 	printf("Gyro:          [%d, %d, %d]\r\n", p->gyro[0], p->gyro[1], p->gyro[2]);

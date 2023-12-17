@@ -19,10 +19,10 @@ uint32_t elapsed_us = 0;
 uint32_t max_loop_time = 0;
 uint64_t t_ms = 0;
 Packet_t transmit_pckt = { 0 };
-int16_t accf[3] = { 0 };
-int16_t acc_offset[3] = { 0 };
-int16_t acc_corr[3] = { 0 };
-bool calibration = false;
+int16_t  accf[3] = { 0 };
+int16_t  acc_offset[3] = { 0 };
+int16_t  acc_corr[3] = { 0 };
+bool     calibration = false;
 uint16_t i_calibration = 0;
 
 // ================== FUNCTIONS =====================
