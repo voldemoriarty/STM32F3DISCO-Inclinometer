@@ -9,6 +9,7 @@
 #include "main.h"
 #include "i2c.h"
 #include "tim.h"
+#include "spi.h"
 #include "usart.h"
 
 void delay_ms(uint32_t ms)
@@ -36,6 +37,40 @@ int read_i2c_reg(uint8_t addr, uint16_t reg, uint16_t len, uint8_t *buff)
         reg |= 0x80;
 
     ret = HAL_I2C_Mem_Read(&hi2c1, addr, reg, 1, buff, len, HAL_MAX_DELAY);
+
+    if (ret == HAL_OK)
+        return 0;
+    else
+        return 1;
+}
+
+void spi_select()
+{
+    HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
+}
+
+void spi_deselect()
+{
+    HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_SET);
+}
+
+int spi_tx(uint8_t* bytes, uint16_t len)
+{
+    HAL_StatusTypeDef ret;
+
+    ret = HAL_SPI_Transmit(&hspi1, bytes, len, HAL_MAX_DELAY);
+
+    if (ret == HAL_OK)
+        return 0;
+    else
+        return 1;
+}
+
+int spi_rx(uint8_t* buffer, uint16_t len)
+{
+    HAL_StatusTypeDef ret;
+
+    ret = HAL_SPI_Receive(&hspi1, buffer, len, HAL_MAX_DELAY);
 
     if (ret == HAL_OK)
         return 0;
